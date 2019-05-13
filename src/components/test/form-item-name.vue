@@ -6,10 +6,25 @@
 </template>
 
 <script>
+const name = "form-item-name";
+
 export default {
-  name: "form-item-name",
+  name,
+  _dynamicFormConfig: {
+    component: name,
+    data2Model(formData, context) {
+      return {
+        name: formData.b
+      };
+    },
+    model2Data(model, context) {
+      return {
+        b: model.name
+      };
+    }
+  },
   props: {
-    config: {
+    model: {
       type: Object,
       required: true
     },
@@ -20,16 +35,16 @@ export default {
   },
   data() {
     return {
-      count: 0,
+      count: 0
     };
   },
   methods: {
     updateName() {
       this.context.dynamicForm.updateFormItemData(this.config.id, {
-        name: this.config.data.name+ `-> ${this.count++}`
+        name: this.config.data.name + `-> ${this.count++}`
       });
     }
-  },
+  }
 };
 </script>
 

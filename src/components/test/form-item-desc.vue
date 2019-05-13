@@ -1,14 +1,28 @@
 <template>
-  <vi-form-item :rules="rules" :prop="config.id" label="desc">
-    <vi-input :value="config.data.desc" @blur="updateDesc"></vi-input>
+  <vi-form-item :rules="rules" :prop="formItemModel._prop" label="desc">
+    <vi-input :value="formItemModel.desc" @blur="updateDesc"></vi-input>
   </vi-form-item>
 </template>
 
 <script>
+const name = "form-item-desc";
 export default {
-  name: "form-item-desc",
+  name,
+  _dynamicFormConfig: {
+    component: name,
+    data2Model(formData, context) {
+      return {
+        desc: formData.c
+      };
+    },
+    model2Data(model, context) {
+      return {
+        c: model.desc
+      };
+    }
+  },
   props: {
-    config: {
+    formItemModel: {
       type: Object,
       required: true
     },
@@ -28,6 +42,16 @@ export default {
     }
   },
   methods: {
+    data2Model(formData, context) {
+      return {
+        desc: formData.c
+      };
+    },
+    model2Data(model, context) {
+      return {
+        c: model.desc
+      };
+    },
     // 这里的value是formModel[prop]，也就是说必须先更新formModel，才能得到最新的value。
     largeThan10(rule, value, callback) {
       if (value.desc < 10) {
@@ -37,7 +61,7 @@ export default {
       }
     },
     updateDesc(event) {
-      this.context.dynamicForm.updateFormItemData(this.config.id, {
+      this.context.dynamicForm.updateFormItemData(name, {
         desc: event.target.value
       });
     }

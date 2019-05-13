@@ -1,16 +1,29 @@
 <template>
   <vi-form-item>
-    <p>id: {{ config.data.id }}</p>
-    <p>name: {{ config.data.name }}</p>
+    <p>id: {{ model.id }}</p>
+    <p>name: {{ model.name }}</p>
     <vi-button @click="toggleName">toggle name</vi-button>
   </vi-form-item>
 </template>
 
 <script>
+const name = "form-item-id";
 export default {
-  name: "form-item-id",
+  name,
+  _dynamicFormConfig: {
+    component: name,
+    data2Model(formData, context) {
+      return {
+        id: formData.a,
+        name: formData.b
+      };
+    },
+    model2Data(model, context) {
+      return model;
+    }
+  },
   props: {
-    config: {
+    model: {
       type: Object,
       required: true
     },

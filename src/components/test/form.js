@@ -1,31 +1,19 @@
-import tool from '../tool';
-import idItemOption from './formItem1Option';
-import nameItemOption from './formItem2Option';
-import descItemOption from './formItem3Option';
-import textItemOption from './formItem4Option';
+import formItemId from './form-item-id';
+import formItemName from './form-item-name';
+import formItemDesc from './form-item-desc';
+import formItemText from './form-item-text';
 
 export default {
-  api: {
-    create: '/create',
-    update: '/update',
-    copy: '/copy',
-  },
-  formItems: [idItemOption, nameItemOption, descItemOption, textItemOption],
+  formItems: [formItemId, formItemName, formItemDesc, formItemText].map(comp => comp._dynamicFormConfig),
   groups: [
     {
       label: 'Group 1',
-      itemIds: ['id', 'name'],
+      itemIds: [formItemId._dynamicFormConfig.component, formItemName._dynamicFormConfig.component],
       hidden: false,
     },
     {
       label: 'Group 2',
-      itemIds: ['desc', 'text'],
+      itemIds: [formItemDesc._dynamicFormConfig.component, formItemText._dynamicFormConfig.component],
     },
   ],
-
-  isEdit() {
-    return tool.queryToJson().ad_id;
-  },
-
-  mounted() {},
 };

@@ -1,7 +1,7 @@
 <template>
   <vi-form :model="dynamicForm.context.formModel" label-width="100px">
     <form-group
-      v-for="(item,index) in dynamicForm.context.groupOptions"
+      v-for="(item,index) in dynamicForm.context.formGroupsConfig"
       :key="index"
       class="form-group"
       :option="item"

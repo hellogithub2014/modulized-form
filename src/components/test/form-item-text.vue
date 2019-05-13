@@ -3,10 +3,22 @@
 </template>
 
 <script>
+const name = "form-item-text";
 export default {
-  name: "form-item-text",
+  name,
+  _dynamicFormConfig: {
+    component: name,
+    data2Model(formData, context) {
+      return {
+        text: formData.d
+      };
+    },
+    model2Data(model, context) {
+      return model;
+    }
+  },
   props: {
-    config: {
+    model: {
       type: Object,
       required: true
     }

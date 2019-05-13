@@ -2,10 +2,10 @@
   <div>
     <h2>{{ option.label }}</h2>
     <component
-      v-for="item in formItemOptions"
-      :key="item.id"
-      :is="item.component"
-      :config="item.config"
+      v-for="config in formItemsConfig"
+      :key="config.component"
+      :is="config.component"
+      :config="config"
       :context="context"
     />
   </div>
@@ -37,7 +37,7 @@ export default {
   },
   computed: {
     formItemOptions() {
-      return this.option.formItemOptions.filter(item => !item.hidden);
+      return this.option.formItemsConfig.filter(item => !item.hidden);
     }
   }
 };

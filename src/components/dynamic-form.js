@@ -26,46 +26,47 @@ class DynamicForm {
     });
   }
 
-  getFormItem(itemId) {
-    return this.context.formItems.find(item => item.id === itemId); // 表单项配置
+  // 获取表单项组件配置
+  getFormItemConfig(itemId) {
+    return this.context.formItems.find(item => item.component === itemId);
   }
 
   resetFormData(formData) {
     this.context.formModel = this.context.formModel || {};
     this.context.formData = formData;
 
-    const groupOptions = this.visibleGroups.map(group => {
+    const formGroupsConfig = this.visibleGroups.map(group => {
       const { itemIds = [] } = group; // itemIds只有组件的id
-      const formItemOptions = itemIds.map(itemId => {
-        const itemObj = this.getFormItem(itemId);
+      const formItemsConfig = itemIds.map(itemId => {
+        const config = this.getFormItemConfig(itemId);
 
-        const model = itemObj.data2Model(formData);
-        itemObj.config = {
-          data: model,
-          id: itemObj.id,
-        };
-        itemObj.hidden = itemObj.hidden === undefined ? false : itemObj.hidden;
+        const model = config.data2Model(formData);
+        config.formItemModel = model;
+        config.formItemModel._prop = config.component;
 
-        this.context.formModel[itemObj.id] = model;
+        // TODO: hidden：支持function、boolean
+        config.hidden = config.hidden === undefined ? false : config.hidden;
 
-        return itemObj;
+        this.context.formModel[config.component] = model; // 设置formModel
+
+        return config;
       });
       return {
         ...group,
-        formItemOptions,
+        formItemsConfig,
       };
     });
 
     this.context = {
       ...this.context,
-      groupOptions,
+      formGroupsConfig,
     };
   }
 
   // 更新form item对应的formData
   updateFormItemData(itemId, model) {
-    const formItem = this.getFormItem(itemId);
-    const itemData = formItem.model2Data(model, this.context);
+    const config = this.getFormItemConfig(itemId);
+    const itemData = config.model2Data(model, this.context);
     this.resetFormData({
       ...this.context.formData,
       ...itemData,
@@ -74,13 +75,13 @@ class DynamicForm {
 
   // 切换指定form item的显隐
   toggleFormItem(itemId) {
-    const { groupOptions } = this.context;
-    for (let i = 0; i < groupOptions.length; i++) {
-      const { formItemOptions } = groupOptions[i];
-      for (let j = 0; j < formItemOptions.length; j++) {
-        const cur = formItemOptions[j];
-        if (cur.id === itemId) {
-          cur.hidden = !cur.hidden;
+    const { formGroupsConfig } = this.context;
+    for (let i = 0; i < formGroupsConfig.length; i++) {
+      const { formItemsConfig } = formGroupsConfig[i];
+      for (let j = 0; j < formItemsConfig.length; j++) {
+        const config = formItemsConfig[j];
+        if (config.component === itemId) {
+          config.hidden = !config.hidden;
           this.resetFormData(this.context.formData); // trigger dom update
           return;
         }
