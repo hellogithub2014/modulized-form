@@ -1,11 +1,14 @@
 <template>
-  <vi-form-item>{{ config }}</vi-form-item>
+  <vi-form-item>{{ formItemModel }}</vi-form-item>
 </template>
 
 <script>
+import dfFormItem from "./df-form-item";
+
 const name = "form-item-text";
 export default {
   name,
+  extends: dfFormItem,
   _dynamicFormConfig: {
     component: name,
     data2Model(formData, context) {
@@ -15,12 +18,6 @@ export default {
     },
     model2Data(model, context) {
       return model;
-    }
-  },
-  props: {
-    model: {
-      type: Object,
-      required: true
     }
   }
 };

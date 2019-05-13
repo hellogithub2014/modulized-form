@@ -1,15 +1,18 @@
 <template>
   <vi-form-item>
-    <p>id: {{ model.id }}</p>
-    <p>name: {{ model.name }}</p>
+    <p>id: {{ formItemModel.id }}</p>
+    <p>name: {{ formItemModel.name }}</p>
     <vi-button @click="toggleName">toggle name</vi-button>
   </vi-form-item>
 </template>
 
 <script>
+import dfFormItem from "./df-form-item";
+
 const name = "form-item-id";
 export default {
   name,
+  extends: dfFormItem,
   _dynamicFormConfig: {
     component: name,
     data2Model(formData, context) {
@@ -22,19 +25,10 @@ export default {
       return model;
     }
   },
-  props: {
-    model: {
-      type: Object,
-      required: true
-    },
-    context: {
-      type: Object,
-      required: true
-    }
-  },
+
   methods: {
     toggleName() {
-      this.context.dynamicForm.toggleFormItem("name");
+      this.toggleFormItem("form-item-name");
     }
   }
 };

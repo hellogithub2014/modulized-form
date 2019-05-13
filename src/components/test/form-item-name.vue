@@ -1,15 +1,18 @@
 <template>
   <vi-form-item>
-    <p>{{ model.name }}</p>
+    <p>{{ formItemModel.name }}</p>
     <vi-button @click="updateName">updateName</vi-button>
   </vi-form-item>
 </template>
 
 <script>
+import dfFormItem from "./df-form-item";
+
 const name = "form-item-name";
 
 export default {
   name,
+  extends: dfFormItem,
   _dynamicFormConfig: {
     component: name,
     data2Model(formData, context) {
@@ -23,16 +26,6 @@ export default {
       };
     }
   },
-  props: {
-    model: {
-      type: Object,
-      required: true
-    },
-    context: {
-      type: Object,
-      required: true
-    }
-  },
   data() {
     return {
       count: 0
@@ -40,8 +33,8 @@ export default {
   },
   methods: {
     updateName() {
-      this.context.dynamicForm.updateFormItemData(this.model.id, {
-        name: this.model.name + `-> ${this.count++}`
+      this.updateFormItemData({
+        name: this.formItemModel.name + `-> ${this.count++}`
       });
     }
   }

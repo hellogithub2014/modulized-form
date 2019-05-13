@@ -42,7 +42,7 @@ class DynamicForm {
 
         const model = config.data2Model(formData);
         config.formItemModel = model;
-        config.formItemModel._prop = config.component;
+        config.formItemModel._component = config.component;
 
         // TODO: hidden：支持function、boolean
         config.hidden = config.hidden === undefined ? false : config.hidden;

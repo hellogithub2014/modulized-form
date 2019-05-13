@@ -1,13 +1,16 @@
 <template>
-  <vi-form-item :rules="rules" :prop="formItemModel._prop" label="desc">
+  <vi-form-item :rules="rules" :prop="formItemModel._component" label="desc">
     <vi-input :value="formItemModel.desc" @blur="updateDesc"></vi-input>
   </vi-form-item>
 </template>
 
 <script>
+import dfFormItem from "./df-form-item";
+
 const name = "form-item-desc";
 export default {
   name,
+  extends: dfFormItem,
   _dynamicFormConfig: {
     component: name,
     data2Model(formData, context) {
@@ -19,16 +22,6 @@ export default {
       return {
         c: model.desc
       };
-    }
-  },
-  props: {
-    formItemModel: {
-      type: Object,
-      required: true
-    },
-    context: {
-      type: Object,
-      required: true
     }
   },
   computed: {
@@ -61,7 +54,7 @@ export default {
       }
     },
     updateDesc(event) {
-      this.context.dynamicForm.updateFormItemData(name, {
+      this.updateFormItemData({
         desc: event.target.value
       });
     }

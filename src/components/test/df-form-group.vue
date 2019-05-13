@@ -5,8 +5,9 @@
       v-for="config in formItemsConfig"
       :key="config.component"
       :is="config.component"
-      :config="config"
+      :formItemModel="config.formItemModel"
       :context="context"
+      class="form-item"
     />
   </div>
 </template>
@@ -18,7 +19,7 @@ import formItemDesc from "./form-item-desc";
 import formItemText from "./form-item-text";
 
 export default {
-  name: "form-group",
+  name: "dy-form-group",
   components: {
     formItemId,
     formItemName,
@@ -36,12 +37,17 @@ export default {
     }
   },
   computed: {
-    formItemOptions() {
+    formItemsConfig() {
       return this.option.formItemsConfig.filter(item => !item.hidden);
     }
   }
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
+.form-item {
+  border: 1px solid red;
+  padding: 10px;
+  margin: 10px;
+}
 </style>

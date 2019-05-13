@@ -1,6 +1,6 @@
 <template>
   <vi-form :model="dynamicForm.context.formModel" label-width="100px">
-    <form-group
+    <df-form-group
       v-for="(item,index) in dynamicForm.context.formGroupsConfig"
       :key="index"
       class="form-group"
@@ -14,11 +14,11 @@
 <script>
 import DynamicForm from "../dynamic-form";
 import formOption from "./form";
-import formGroup from "./form-group";
+import dfFormGroup from "./df-form-group";
 
 export default {
   components: {
-    formGroup
+    dfFormGroup
   },
   data() {
     return {
