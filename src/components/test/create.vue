@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <vi-form :model="dynamicForm.context.formModel" label-width="100px">
     <form-group
       v-for="(item,index) in dynamicForm.context.groupOptions"
       :key="index"
@@ -7,7 +7,7 @@
       :option="item"
       :context="dynamicForm.context"
     />
-  </div>
+  </vi-form>
 </template>
 
 <script>
@@ -28,7 +28,8 @@ export default {
     this.dynamicForm.resetFormData({
       a: 1,
       b: 2,
-      c: 3
+      c: 3,
+      d: 4
     });
   }
 };

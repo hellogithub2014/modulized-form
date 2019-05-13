@@ -14,12 +14,12 @@ export default {
   groups: [
     {
       label: 'Group 1',
-      itemNames: ['id', 'name'],
-      hidden: true,
+      itemIds: ['id', 'name'],
+      hidden: false,
     },
     {
       label: 'Group 2',
-      itemNames: ['desc', 'text'],
+      itemIds: ['desc', 'text'],
     },
   ],
 

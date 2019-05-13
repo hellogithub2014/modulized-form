@@ -1,5 +1,5 @@
 <template>
-  <div>{{ config }}</div>
+  <vi-form-item>{{ config }}</vi-form-item>
 </template>
 
 <script>
