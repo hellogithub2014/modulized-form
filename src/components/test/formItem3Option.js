@@ -10,6 +10,8 @@ export default {
     };
   },
   model2Data(model, context) {
-    return model;
+    return {
+      c: model.desc,
+    };
   },
 };

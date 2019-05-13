@@ -1,6 +1,6 @@
 <template>
   <vi-form-item :rules="rules" :prop="config.id" label="desc">
-    <vi-input :value="config.data.desc"></vi-input>
+    <vi-input :value="config.data.desc" @blur="updateDesc"></vi-input>
   </vi-form-item>
 </template>
 
@@ -9,6 +9,10 @@ export default {
   name: "form-item-desc",
   props: {
     config: {
+      type: Object,
+      required: true
+    },
+    context: {
       type: Object,
       required: true
     }
@@ -31,6 +35,11 @@ export default {
       } else {
         callback();
       }
+    },
+    updateDesc(event) {
+      this.context.dynamicForm.updateFormItemData(this.config.id, {
+        desc: event.target.value
+      });
     }
   }
 };

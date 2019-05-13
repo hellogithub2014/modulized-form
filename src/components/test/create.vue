@@ -7,6 +7,7 @@
       :option="item"
       :context="dynamicForm.context"
     />
+    <p>formData: {{ dynamicForm.context.formData }}</p>
   </vi-form>
 </template>
 
