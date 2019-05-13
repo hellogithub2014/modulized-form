@@ -1,6 +1,6 @@
 <template>
   <vi-form-item>
-    <p>{{ config.data.name }}</p>
+    <p>{{ model.name }}</p>
     <vi-button @click="updateName">updateName</vi-button>
   </vi-form-item>
 </template>
@@ -40,8 +40,8 @@ export default {
   },
   methods: {
     updateName() {
-      this.context.dynamicForm.updateFormItemData(this.config.id, {
-        name: this.config.data.name + `-> ${this.count++}`
+      this.context.dynamicForm.updateFormItemData(this.model.id, {
+        name: this.model.name + `-> ${this.count++}`
       });
     }
   }
