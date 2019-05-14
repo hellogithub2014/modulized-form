@@ -51,5 +51,10 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
+.form-group {
+  border: 1px solid green;
+  padding: 10px;
+  margin: 10px;
+}
 </style>

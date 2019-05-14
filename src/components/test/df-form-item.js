@@ -10,9 +10,6 @@ export default {
     },
   },
   methods: {
-    toggleFormItem(itemId) {
-      this.context.dynamicForm.toggleFormItem(itemId);
-    },
     updateFormItemData(model) {
       this.context.dynamicForm.updateFormItemData(this.formItemModel._component, model);
     },

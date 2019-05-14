@@ -13,6 +13,10 @@ export default {
   extends: dfFormItem,
   _dynamicFormConfig: {
     component: name,
+    // formGroupVm：item组件所在form group组件的vm
+    hidden(context, formGroupVm) {
+      return context.formData.a === 10;
+    },
     data2Model(formData, context) {
       return {
         desc: formData.c
@@ -35,16 +39,6 @@ export default {
     }
   },
   methods: {
-    data2Model(formData, context) {
-      return {
-        desc: formData.c
-      };
-    },
-    model2Data(model, context) {
-      return {
-        c: model.desc
-      };
-    },
     // 这里的value是formModel[prop]，也就是说必须先更新formModel，才能得到最新的value。
     largeThan10(rule, value, callback) {
       if (value.desc < 10) {

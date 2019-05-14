@@ -1,6 +1,7 @@
 <template>
-  <vi-form-item>
-    <p>id: {{ formItemModel.id }}</p>
+  <vi-form-item :prop="formItemModel._component" label="id">
+    <vi-input :value="formItemModel.id" @blur="updateId"></vi-input>
+    <!-- <p>id: {{ formItemModel.id }}</p> -->
     <p>name: {{ formItemModel.name }}</p>
     <vi-button @click="toggleName">toggle name</vi-button>
   </vi-form-item>
@@ -15,6 +16,9 @@ export default {
   extends: dfFormItem,
   _dynamicFormConfig: {
     component: name,
+    hidden(context, formGroupVm) {
+      return formGroupVm.index === 1;
+    },
     data2Model(formData, context) {
       return {
         id: formData.a,
@@ -22,13 +26,17 @@ export default {
       };
     },
     model2Data(model, context) {
-      return model;
+      return {
+        a: +model.id
+      };
     }
   },
 
   methods: {
-    toggleName() {
-      this.toggleFormItem("form-item-name");
+    updateId(event) {
+      this.updateFormItemData({
+        id: event.target.value
+      });
     }
   }
 };

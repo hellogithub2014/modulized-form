@@ -39,17 +39,17 @@ class DynamicForm {
       const { itemIds = [] } = group; // itemIds只有组件的id
       const formItemsConfig = itemIds.map(itemId => {
         const config = this.getFormItemConfig(itemId);
-
         const model = config.data2Model(formData);
-        config.formItemModel = model;
-        config.formItemModel._component = config.component;
-
-        // TODO: hidden：支持function、boolean
-        config.hidden = config.hidden === undefined ? false : config.hidden;
 
         this.context.formModel[config.component] = model; // 设置formModel
 
-        return config;
+        return {
+          ...config,
+          formItemModel: {
+            ...model,
+            _component: config.component,
+          },
+        };
       });
       return {
         ...group,
@@ -73,7 +73,14 @@ class DynamicForm {
     });
   }
 
-  // 切换指定form item的显隐
+  /**
+   * 切换指定form item的显隐
+   * @deprecated
+   * @author liubin.frontend
+   * @param {*} itemId
+   * @returns
+   * @memberof DynamicForm
+   */
   toggleFormItem(itemId) {
     const { formGroupsConfig } = this.context;
     for (let i = 0; i < formGroupsConfig.length; i++) {
