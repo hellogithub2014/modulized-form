@@ -9,11 +9,13 @@
         </vi-select>
       </vi-form-item>
 
-      <df-form-group
+      <component
         v-for="(item,index) in formGroupsConfig"
         :key="index"
+        :is="item.component"
         class="form-group"
         :option="item"
+        :title="`Group-${index}`"
         :context="dynamicForm.context"
       />
 
@@ -25,38 +27,22 @@
 </template>
 
 <script>
+import dfForm from "../df-form";
 import DynamicForm from "../dynamic-form";
-import formOption from "./form";
-import dfFormGroup from "./df-form-group";
+
+import formOption from "./form-option";
+import formGroupCommon from "./form-group-common";
 
 export default {
+  extends: dfForm,
   components: {
-    dfFormGroup
+    formGroupCommon
   },
   data() {
     return {
       dynamicForm: new DynamicForm(formOption),
       type: 3
     };
-  },
-  computed: {
-    formGroupsConfig() {
-      return this.dynamicForm.context.formGroupsConfig.filter(g => {
-        const { hidden } = g;
-        if (hidden === undefined) {
-          return true;
-        }
-        if (typeof hidden === "boolean") {
-          return !hidden;
-        }
-
-        if (typeof hidden === "function") {
-          return !hidden(this.dynamicForm.context, this);
-        }
-
-        return !hidden;
-      });
-    }
   },
   mounted() {
     this.dynamicForm.resetFormData({

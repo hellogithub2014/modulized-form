@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import dfFormItem from "./df-form-item";
+import dfFormItem from "../df-form-item";
 
 const name = "form-item-id";
 export default {

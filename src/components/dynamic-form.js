@@ -1,12 +1,18 @@
 class DynamicForm {
   constructor(options) {
     this.context = {
-      ...options,
+      groups: options.groups || [],
       formGroupsConfig: [],
+
+      formItems: options.formItems || [],
+
       formModel: null, // 用于form校验
       formData: null, // 用于后端接口
+
       dynamicForm: this,
     };
+
+    this.context.formItems = this.context.formItems.map(item => item._dynamicFormConfig);
   }
 
   // 获取表单项组件配置

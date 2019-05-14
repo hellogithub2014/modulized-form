@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>{{ option.label }}</h2>
+    <h2>{{ title }}</h2>
     <div>
       <p>index: {{ index }}</p>
       <vi-radio-group v-model="index">
@@ -21,13 +21,15 @@
 </template>
 
 <script>
+import dfFormGroup from "../df-form-group";
 import formItemId from "./form-item-id";
 import formItemName from "./form-item-name";
 import formItemDesc from "./form-item-desc";
 import formItemText from "./form-item-text";
 
 export default {
-  name: "dy-form-group",
+  name: "form-group-common",
+  extends: dfFormGroup,
   components: {
     formItemId,
     formItemName,
@@ -35,37 +37,15 @@ export default {
     formItemText
   },
   props: {
-    option: {
-      type: Object,
-      required: true
-    },
-    context: {
-      type: Object,
-      required: true
+    title: {
+      type: String,
+      default: ""
     }
   },
   data() {
     return {
       index: 1
     };
-  },
-  computed: {
-    formItemsConfig() {
-      return this.option.formItemsConfig.filter(item => {
-        const { hidden } = item;
-        if (hidden === undefined) {
-          return true;
-        }
-        if (typeof hidden === "boolean") {
-          return !hidden;
-        }
-        if (typeof hidden === "function") {
-          return !item.hidden(this.context, this);
-        }
-
-        return !hidden;
-      });
-    }
   }
 };
 </script>
