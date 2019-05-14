@@ -2,28 +2,11 @@ class DynamicForm {
   constructor(options) {
     this.context = {
       ...options,
+      formGroupsConfig: [],
       formModel: null, // 用于form校验
       formData: null, // 用于后端接口
       dynamicForm: this,
     };
-  }
-
-  get visibleGroups() {
-    let { groups } = this.context;
-    return groups.filter(g => {
-      if (g.hidden === undefined) {
-        return true;
-      }
-      if (typeof g.hidden === 'boolean') {
-        return !g.hidden;
-      }
-
-      if (typeof g.hidden === 'function') {
-        return !g.hidden(this.context);
-      }
-
-      return true;
-    });
   }
 
   // 获取表单项组件配置
@@ -35,7 +18,7 @@ class DynamicForm {
     this.context.formModel = this.context.formModel || {};
     this.context.formData = formData;
 
-    const formGroupsConfig = this.visibleGroups.map(group => {
+    const formGroupsConfig = this.context.groups.map(group => {
       const { itemIds = [] } = group; // itemIds只有组件的id
       const formItemsConfig = itemIds.map(itemId => {
         const config = this.getFormItemConfig(itemId);
@@ -71,29 +54,6 @@ class DynamicForm {
       ...this.context.formData,
       ...itemData,
     });
-  }
-
-  /**
-   * 切换指定form item的显隐
-   * @deprecated
-   * @author liubin.frontend
-   * @param {*} itemId
-   * @returns
-   * @memberof DynamicForm
-   */
-  toggleFormItem(itemId) {
-    const { formGroupsConfig } = this.context;
-    for (let i = 0; i < formGroupsConfig.length; i++) {
-      const { formItemsConfig } = formGroupsConfig[i];
-      for (let j = 0; j < formItemsConfig.length; j++) {
-        const config = formItemsConfig[j];
-        if (config.component === itemId) {
-          config.hidden = !config.hidden;
-          this.resetFormData(this.context.formData); // trigger dom update
-          return;
-        }
-      }
-    }
   }
 }
 

@@ -9,11 +9,17 @@ export default {
     {
       label: 'Group 1',
       itemIds: [formItemId._dynamicFormConfig.component, formItemName._dynamicFormConfig.component],
-      hidden: false,
+      hidden(context, formVm) {
+        return formVm.type === 1;
+      },
     },
     {
       label: 'Group 2',
       itemIds: [formItemDesc._dynamicFormConfig.component, formItemText._dynamicFormConfig.component],
+      // formGroupVm：item组件所在form group组件的vm
+      hidden(context, formVm) {
+        return formVm.type === 2;
+      },
     },
   ],
 };

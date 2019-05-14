@@ -1,7 +1,9 @@
 <template>
-  <vi-form-item>
-    <p>{{ formItemModel.name }}</p>
-    <vi-button @click="updateName">updateName</vi-button>
+  <vi-form-item label="name">
+    <span>{{ formItemModel.name }}</span>
+    <div>
+      <vi-button @click="updateName">updateName</vi-button>
+    </div>
   </vi-form-item>
 </template>
 

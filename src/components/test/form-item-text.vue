@@ -1,5 +1,5 @@
 <template>
-  <vi-form-item>{{ formItemModel }}</vi-form-item>
+  <vi-form-item label="text">{{ formItemModel.text }}</vi-form-item>
 </template>
 
 <script>

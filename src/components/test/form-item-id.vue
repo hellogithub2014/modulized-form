@@ -1,9 +1,7 @@
 <template>
   <vi-form-item :prop="formItemModel._component" label="id">
     <vi-input :value="formItemModel.id" @blur="updateId"></vi-input>
-    <!-- <p>id: {{ formItemModel.id }}</p> -->
     <p>name: {{ formItemModel.name }}</p>
-    <vi-button @click="toggleName">toggle name</vi-button>
   </vi-form-item>
 </template>
 
