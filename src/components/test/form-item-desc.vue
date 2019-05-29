@@ -11,22 +11,9 @@ const name = "form-item-desc";
 export default {
   name,
   extends: dfFormItem,
+  //TODO: 完全去掉此项
   _dynamicFormConfig: {
-    component: name,
-    // formGroupVm：item组件所在form group组件的vm
-    hidden(context, formGroupVm) {
-      return context.formData.a === 10;
-    },
-    data2Model(formData, context) {
-      return {
-        desc: formData.c
-      };
-    },
-    model2Data(model, context) {
-      return {
-        c: model.desc
-      };
-    }
+    component: name
   },
   computed: {
     rules() {

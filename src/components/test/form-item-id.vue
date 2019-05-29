@@ -13,21 +13,7 @@ export default {
   name,
   extends: dfFormItem,
   _dynamicFormConfig: {
-    component: name,
-    hidden(context, formGroupVm) {
-      return formGroupVm.index === 1;
-    },
-    data2Model(formData, context) {
-      return {
-        id: formData.a,
-        name: formData.b
-      };
-    },
-    model2Data(model, context) {
-      return {
-        a: +model.id
-      };
-    }
+    component: name
   },
 
   methods: {

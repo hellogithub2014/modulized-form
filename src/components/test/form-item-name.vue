@@ -16,17 +16,7 @@ export default {
   name,
   extends: dfFormItem,
   _dynamicFormConfig: {
-    component: name,
-    data2Model(formData, context) {
-      return {
-        name: formData.b
-      };
-    },
-    model2Data(model, context) {
-      return {
-        b: model.name
-      };
-    }
+    component: name
   },
   data() {
     return {

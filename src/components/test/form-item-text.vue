@@ -10,15 +10,7 @@ export default {
   name,
   extends: dfFormItem,
   _dynamicFormConfig: {
-    component: name,
-    data2Model(formData, context) {
-      return {
-        text: formData.d
-      };
-    },
-    model2Data(model, context) {
-      return model;
-    }
+    component: name
   }
 };
 </script>

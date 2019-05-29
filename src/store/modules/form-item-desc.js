@@ -3,7 +3,7 @@ export default {
     desc: ''
   },
   getters: {
-    itemData ( state, getters, rootState ) {
+    formItemData ( state, getters, rootState ) {
       return {
         c: state.desc
       };
@@ -21,9 +21,9 @@ export default {
     },
   },
   actions: {
-    data2State ( { state, commit, rootState }, backendData ) {
+    data2State ( { state, commit, rootState }, formData ) {
       commit( 'update', {
-        desc: backendData.c
+        desc: formData.c
       } )
     }
   }
