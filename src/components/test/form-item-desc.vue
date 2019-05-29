@@ -6,11 +6,13 @@
 
 <script>
 import dfFormItem from "../df-form-item";
+import { mapState } from "vuex";
 
 export default {
   name: "form-item-desc",
   extends: dfFormItem,
   computed: {
+    ...mapState("desc", []),
     hidden() {
       // return rootState.formData.a === 10;
       return false;

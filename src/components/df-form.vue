@@ -1,5 +1,7 @@
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
   data() {
     return {};
@@ -11,6 +13,9 @@ export default {
         return !groupVm.hidden;
       });
     }
+  },
+  methods: {
+    ...mapActions("fillForm")
   }
 };
 </script>
