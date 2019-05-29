@@ -5,13 +5,9 @@
 <script>
 import dfFormItem from "../df-form-item";
 
-const name = "form-item-text";
 export default {
-  name,
-  extends: dfFormItem,
-  _dynamicFormConfig: {
-    component: name
-  }
+  name: "form-item-text",
+  extends: dfFormItem
 };
 </script>
 

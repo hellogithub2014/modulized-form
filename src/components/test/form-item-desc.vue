@@ -7,15 +7,14 @@
 <script>
 import dfFormItem from "../df-form-item";
 
-const name = "form-item-desc";
 export default {
-  name,
+  name: "form-item-desc",
   extends: dfFormItem,
-  //TODO: 完全去掉此项
-  _dynamicFormConfig: {
-    component: name
-  },
   computed: {
+    hidden() {
+      // return rootState.formData.a === 10;
+      return false;
+    },
     rules() {
       return [
         {

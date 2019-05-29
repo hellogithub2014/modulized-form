@@ -6,9 +6,6 @@ export default {
     formItemData ( state, getters, rootState ) {
       return state;
     },
-    hidden ( state, getters, rootState ) {
-      return false;
-    }
   },
   mutations: {
     update ( state, newState ) {

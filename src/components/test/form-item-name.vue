@@ -10,14 +10,9 @@
 <script>
 import dfFormItem from "../df-form-item";
 
-const name = "form-item-name";
-
 export default {
-  name,
+  name: "form-item-name",
   extends: dfFormItem,
-  _dynamicFormConfig: {
-    component: name
-  },
   data() {
     return {
       count: 0

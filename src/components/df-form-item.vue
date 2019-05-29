@@ -1,16 +1,15 @@
 <script>
 export default {
-  props: {
-    formItemModel: {
-      type: Object,
-      required: true
+  computed: {
+    formVm() {
+      return this.formGroupVm.formVm;
     },
-    context: {
-      type: Object,
-      required: true
+    formGroupVm() {
+      return this.$parent;
     }
   },
   methods: {
+    // 迁移到vuex plugin
     updateFormItemData(model) {
       this.context.dynamicForm.updateFormItemData(
         this.formItemModel._component,

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>{{ title }}</h2>
+    <h2>Form Group 1</h2>
     <div>
       <p>index: {{ index }}</p>
       <vi-radio-group v-model="index">
@@ -10,11 +10,9 @@
     </div>
 
     <component
-      v-for="config in formItemsConfig"
-      :key="config.component"
-      :is="config.component"
-      :formItemModel="config.formItemModel"
-      :context="context"
+      v-for="itemName in visibleFormItems"
+      :key="itemName"
+      :is="itemName"
       class="form-item"
     />
   </div>
@@ -24,28 +22,25 @@
 import dfFormGroup from "../df-form-group";
 import formItemId from "./form-item-id";
 import formItemName from "./form-item-name";
-import formItemDesc from "./form-item-desc";
-import formItemText from "./form-item-text";
 
 export default {
-  name: "form-group-common",
+  name: "form-group-1",
   extends: dfFormGroup,
   components: {
     formItemId,
-    formItemName,
-    formItemDesc,
-    formItemText
-  },
-  props: {
-    title: {
-      type: String,
-      default: ""
-    }
+    formItemName
   },
   data() {
     return {
-      index: 1
+      index: 1,
+      formItems: ["form-item-id", "form-item-name"]
     };
+  },
+  computed: {
+    // TODO:
+    hidden(formVm) {
+      return formVm.type === 1;
+    }
   }
 };
 </script>

@@ -9,11 +9,6 @@ export default {
         a: +state.id
       };
     },
-    hidden ( state, getters, rootState ) {
-      // TODO: 获取vm上的属性进行判断
-      // return formGroupVm.index === 1;
-      return false;
-    }
   },
   mutations: {
     update ( state, newState ) {

@@ -8,9 +8,6 @@ export default {
         c: state.desc
       };
     },
-    hidden ( state, getters, rootState ) {
-      return rootState.formData.a === 10;
-    }
   },
   mutations: {
     update ( state, newState ) {

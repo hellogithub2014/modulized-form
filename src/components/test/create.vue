@@ -10,13 +10,10 @@
       </vi-form-item>
 
       <component
-        v-for="(item,index) in formGroupsConfig"
-        :key="index"
-        :is="item.component"
+        v-for="groupName in visibleFormGroups"
+        :key="groupName"
+        :is="groupName"
         class="form-group"
-        :option="item"
-        :title="`Group-${index}`"
-        :context="dynamicForm.context"
       />
 
       <vi-button @click="submit">submit</vi-button>
@@ -28,29 +25,24 @@
 
 <script>
 import dfForm from "../df-form";
-import DynamicForm from "../dynamic-form";
 
-import formOption from "./form-option";
-import formGroupCommon from "./form-group-common";
+import formGroup1 from "./form-group-1";
+import formGroup2 from "./form-group-2";
 
 export default {
   extends: dfForm,
   components: {
-    formGroupCommon
+    formGroup1,
+    formGroup2
   },
   data() {
     return {
-      dynamicForm: new DynamicForm(formOption),
-      type: 3
+      type: 3,
+      formGroups: ["form-group-1", "form-group-2"]
     };
   },
   mounted() {
-    this.dynamicForm.resetFormData({
-      a: 1,
-      b: 2,
-      c: 3,
-      d: 4
-    });
+    this.fillForm();
   },
   methods: {
     submit() {

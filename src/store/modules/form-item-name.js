@@ -8,9 +8,6 @@ export default {
         b: state.name
       };
     },
-    hidden ( state, getters, rootState ) {
-      return false;
-    }
   },
   mutations: {
     update ( state, newState ) {
