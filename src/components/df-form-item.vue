@@ -1,9 +1,9 @@
 <script>
-import { mapState } from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
   computed: {
-    ...mapState(["formData"]),
+    ...mapGetters(["formData"]),
     formVm() {
       return this.formGroupVm.formVm;
     },

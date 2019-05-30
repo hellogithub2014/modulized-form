@@ -4,6 +4,7 @@
 
     <component
       v-for="itemName in visibleFormItems"
+      :ref="itemName"
       :key="itemName"
       :is="itemName"
       class="form-item"

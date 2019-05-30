@@ -11,6 +11,7 @@
 
       <component
         v-for="groupName in visibleFormGroups"
+        :ref="groupName"
         :key="groupName"
         :is="groupName"
         class="form-group"
@@ -42,7 +43,12 @@ export default {
     };
   },
   mounted() {
-    this.fillForm();
+    this.fillForm({
+      a: 1,
+      b: 2,
+      c: 3,
+      d: 4
+    });
   },
   methods: {
     submit() {

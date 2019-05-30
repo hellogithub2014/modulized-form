@@ -5,15 +5,16 @@ export default {
   },
   getters: {
     formItemData ( state, getters, rootState ) {
-      return state;
+      return {
+        d: state.text,
+      };
     },
   },
   mutations: {
     update ( state, newState ) {
-      state = {
-        ...state,
-        ...newState,
-      };
+      Object.keys( newState ).forEach( key => {
+        state[ key ] = newState[ key ];
+      } )
     },
   },
   actions: {

@@ -13,10 +13,9 @@ export default {
   },
   mutations: {
     update ( state, newState ) {
-      state = {
-        ...state,
-        ...newState,
-      };
+      Object.keys( newState ).forEach( key => {
+        state[ key ] = newState[ key ];
+      } )
     },
   },
   actions: {

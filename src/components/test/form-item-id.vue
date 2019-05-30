@@ -1,5 +1,5 @@
 <template>
-  <vi-form-item :prop="_component" label="id">
+  <vi-form-item prop="formItemId" label="id">
     <vi-input :value="id" @blur="updateId"></vi-input>
     <p>name: {{ name }}</p>
   </vi-form-item>

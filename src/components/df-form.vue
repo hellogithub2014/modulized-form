@@ -1,22 +1,27 @@
 
 <script>
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   data() {
-    return {};
+    return {
+      visibleFormGroups: []
+    };
+  },
+  created() {
+    this.visibleFormGroups = this.formGroups;
+  },
+  mounted() {
+    this.visibleFormGroups = this.formGroups.filter(groupName => {
+      const groupVm = this.$refs[groupName];
+      return !groupVm.hidden;
+    });
   },
   computed: {
-    ...mapState(["formData", "formModel"]),
-    visibleFormGroups() {
-      return this.formGroups.filter(groupName => {
-        const groupVm = this.$refs[groupName];
-        return !groupVm.hidden;
-      });
-    }
+    ...mapGetters(["formData", "formModel"])
   },
   methods: {
-    ...mapActions("fillForm")
+    ...mapActions(["fillForm"])
   }
 };
 </script>
