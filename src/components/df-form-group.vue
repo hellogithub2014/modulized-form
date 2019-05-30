@@ -1,20 +1,15 @@
 <script>
 export default {
-  data() {
-    return {
-      visibleFormItems: []
-    };
-  },
-  created() {
-    this.visibleFormItems = this.formItems;
-  },
-  mounted() {
-    this.visibleFormItems = this.formItems.filter(itemName => {
-      const itemVm = this.$refs[itemName];
-      return !itemVm.hidden;
-    });
-  },
   computed: {
+    visibleFormItems() {
+      return this.formItems.filter(itemName => {
+        const itemVm = this.$refs[itemName];
+        if (!itemVm) {
+          return true;
+        }
+        return !itemVm.hidden;
+      });
+    },
     formVm() {
       return this.$parent;
     }
