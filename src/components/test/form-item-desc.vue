@@ -1,21 +1,20 @@
 <template>
-  <vi-form-item :rules="rules" :prop="formItemModel._component" label="desc">
-    <vi-input :value="formItemModel.desc" @blur="updateDesc"></vi-input>
+  <vi-form-item :rules="rules" :prop="_component" label="desc">
+    <vi-input :value="desc" @blur="updateDesc"></vi-input>
   </vi-form-item>
 </template>
 
 <script>
 import dfFormItem from "../df-form-item";
-import { mapState } from "vuex";
+import { mapState, mapMutations } from "vuex";
 
 export default {
   name: "form-item-desc",
   extends: dfFormItem,
   computed: {
-    ...mapState("desc", []),
+    ...mapState("formItemDesc", ["desc"]),
     hidden() {
-      // return rootState.formData.a === 10;
-      return false;
+      return this.formData.a === 10;
     },
     rules() {
       return [
@@ -27,7 +26,7 @@ export default {
     }
   },
   methods: {
-    // 这里的value是formModel[prop]，也就是说必须先更新formModel，才能得到最新的value。
+    ...mapMutations("formItemDesc", ["update"]),
     largeThan10(rule, value, callback) {
       if (value.desc < 10) {
         callback(new Error("不能小于10"));
@@ -36,7 +35,7 @@ export default {
       }
     },
     updateDesc(event) {
-      this.updateFormItemData({
+      this.update({
         desc: event.target.value
       });
     }

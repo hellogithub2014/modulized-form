@@ -6,16 +6,21 @@ import modules from './modules';
 // import mutations from './mutations';
 Vue.use( Vuex );
 
-
 const store = new Vuex.Store( {
   // state,
-  // mutations,
+  mutations: {
+
+  },
   getters: {
+    // TODO: 用于表单校验的
+    formModel () {
+
+    },
     formData ( state, getters ) {
       Object.keys( modules ).reduce( ( result, moduleKey ) => {
         return {
           ...result,
-          ...getters[ moduleKey ]
+          ...getters[ `${ moduleKey }/formItemData` ]
         };
       }, {} );
     },

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <vi-form class="form" ref="form" :model="dynamicForm.context.formModel" label-width="100px">
+    <vi-form class="form" ref="form" :model="formModel" label-width="100px">
       <vi-form-item label="type">
         <vi-select v-model="type" placeholder="请选择">
           <vi-option :label="1" :value="1"></vi-option>
@@ -19,7 +19,7 @@
       <vi-button @click="submit">submit</vi-button>
       <vi-button @click="reset">reset</vi-button>
     </vi-form>
-    <p>formData: {{ dynamicForm.context.formData }}</p>
+    <p>formData: {{ formData }}</p>
   </div>
 </template>
 

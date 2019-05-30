@@ -1,26 +1,27 @@
 <template>
-  <vi-form-item :prop="formItemModel._component" label="id">
-    <vi-input :value="formItemModel.id" @blur="updateId"></vi-input>
-    <p>name: {{ formItemModel.name }}</p>
+  <vi-form-item :prop="_component" label="id">
+    <vi-input :value="id" @blur="updateId"></vi-input>
+    <p>name: {{ name }}</p>
   </vi-form-item>
 </template>
 
 <script>
 import dfFormItem from "../df-form-item";
+import { mapState, mapMutations } from "vuex";
 
 export default {
   name: "form-item-id",
   extends: dfFormItem,
   computed: {
+    ...mapState("formItemId", ["id", "name"]),
     hidden() {
-      // TODO: 获取vm上的属性进行判断
-      // return formGroupVm.index === 1;
-      return false;
+      return this.formGroupVm.index === 1;
     }
   },
   methods: {
+    ...mapMutations("formItemId", ["update"]),
     updateId(event) {
-      this.updateFormItemData({
+      this.update({
         id: event.target.value
       });
     }
