@@ -8,13 +8,14 @@ const fillPlugin = store => {
   const moduleKeys = Object.keys( modules );
   const moniteTypes = moduleKeys.map( moduleKey => `${ moduleKey }/update` );
 
-  let dispatched = false;
+  let dispatched = false; // 避免无限循环
 
   store.subscribe( ( mutation ) => {
     const { type = '' } = mutation;
 
     const index = moniteTypes.indexOf( type );
 
+    // 每次有某个module触发update的mutation时，联动其他module的state更新到最新，因为可能有互相依赖
     if ( index > -1 && !dispatched )
     {
       dispatched = true;
