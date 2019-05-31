@@ -38,14 +38,14 @@ export default {
   },
   data() {
     return {
-      index: 1,
+      index: 0,
       formItems: ["form-item-id", "form-item-name"]
     };
   },
   watch: {
     "formVm.type": {
       handler(value) {
-        this.toggle(() => value === 1);
+        this.toggleVisible(() => value === 1);
       }
     },
     immediate: true

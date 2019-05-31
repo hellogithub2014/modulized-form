@@ -1,10 +1,18 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import modules from './modules';
-// import state from './state';
-// import actions from './actions';
-// import mutations from './mutations';
+
 Vue.use( Vuex );
+
+const fillPlugin = store => {
+  store.subscribe( ( mutation ) => {
+    const { type = '' } = mutation;
+    if ( type.endsWith( '/update' ) )
+    {
+      store.dispatch( 'fillForm', store.getters.formData );
+    }
+  } );
+};
 
 const store = new Vuex.Store( {
   getters: {
@@ -33,7 +41,7 @@ const store = new Vuex.Store( {
       dispatch( 'data2State', backendData );
     },
   },
-  // plugins: [ vuexLocal.plugin ],
+  // plugins: [ fillPlugin ],
 } );
 
 export default store;

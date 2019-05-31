@@ -36,7 +36,7 @@ export default {
         this.hiddenFormItems.splice(index, 1);
       }
     },
-    toggle(hideFunc) {
+    toggleVisible(hideFunc) {
       if (hideFunc()) {
         this.$emit("hide");
       } else {

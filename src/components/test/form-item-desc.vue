@@ -25,7 +25,7 @@ export default {
   watch: {
     "formData.a": {
       handler(value) {
-        this.toggle(() => value === 10);
+        this.toggleVisible(() => value === 10);
       }
     }
   },

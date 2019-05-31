@@ -9,6 +9,11 @@ import { mapState, mapMutations } from "vuex";
 export default {
   name: "form-item-text",
   extends: dfFormItem,
+  data() {
+    return {
+      modulePath: "formItemText"
+    };
+  },
   computed: {
     ...mapState("formItemText", ["text"])
   },

@@ -16,7 +16,7 @@ export default {
     ...mapGetters(["formData"])
   },
   methods: {
-    toggle(hideFunc) {
+    toggleVisible(hideFunc) {
       if (hideFunc()) {
         this.$emit("hide");
       } else {

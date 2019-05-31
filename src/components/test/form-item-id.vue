@@ -18,7 +18,7 @@ export default {
   watch: {
     "formGroupVm.index": {
       handler(value) {
-        this.toggle(() => value === 1);
+        this.toggleVisible(() => value === 1);
       },
       immediate: true
     }
