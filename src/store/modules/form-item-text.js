@@ -18,13 +18,10 @@ export default {
     },
   },
   actions: {
-    data2State: {
-      handler ( { state, commit, rootState }, formData ) {
-        commit( 'update', {
-          text: formData.d
-        } )
-      },
-      root: true,
-    }
+    data2State ( { state, commit, rootState }, formData ) {
+      commit( 'update', {
+        text: formData.d
+      } )
+    },
   }
 }

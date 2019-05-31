@@ -5,11 +5,26 @@ import modules from './modules';
 Vue.use( Vuex );
 
 const fillPlugin = store => {
+  const moduleKeys = Object.keys( modules );
+  const moniteTypes = moduleKeys.map( moduleKey => `${ moduleKey }/update` );
+
+  let dispatched = false;
+
   store.subscribe( ( mutation ) => {
     const { type = '' } = mutation;
-    if ( type.endsWith( '/update' ) )
+
+    const index = moniteTypes.indexOf( type );
+
+    if ( index > -1 && !dispatched )
     {
-      store.dispatch( 'fillForm', store.getters.formData );
+      dispatched = true;
+      moniteTypes.forEach( ( _, curIndex ) => {
+        if ( curIndex !== index )
+        {
+          store.dispatch( `${ moduleKeys[ curIndex ] }/data2State`, store.getters.formData )
+        }
+      } )
+
     }
   } );
 };
@@ -38,7 +53,9 @@ const store = new Vuex.Store( {
   modules,
   actions: {
     fillForm ( { dispatch, commit, getters }, backendData ) {
-      dispatch( 'data2State', backendData );
+      Object.keys( modules ).forEach( ( moduleKey ) => {
+        dispatch( `${ moduleKey }/data2State`, backendData )
+      } );
     },
   },
   // plugins: [ fillPlugin ],
