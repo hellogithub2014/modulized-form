@@ -24,7 +24,9 @@ const fillPlugin = store => {
           store.dispatch( `${ moduleKeys[ curIndex ] }/data2State`, store.getters.formData )
         }
       } )
-
+      Vue.nextTick( () => {
+        dispatched = false;
+      } )
     }
   } );
 };
@@ -58,7 +60,7 @@ const store = new Vuex.Store( {
       } );
     },
   },
-  // plugins: [ fillPlugin ],
+  plugins: [ fillPlugin ],
 } );
 
 export default store;
