@@ -3,11 +3,16 @@
     <h2>Form Group 2</h2>
 
     <component
-      v-for="itemName in visibleFormItems"
+      v-for="itemName in formItems"
+      v-show="isFormItemVisible(itemName)"
       :ref="itemName"
       :key="itemName"
       :is="itemName"
+      :formVm="formVm"
+      :formGroupVm="formGroupVm"
       class="form-item"
+      @hide="hideFormItem(itemName)"
+      @show="showFormItem(itemName)"
     />
   </div>
 </template>
@@ -29,12 +34,6 @@ export default {
       index: 1,
       formItems: ["form-item-text", "form-item-desc"]
     };
-  },
-  computed: {
-    // TODO:
-    hidden(formVm) {
-      return formVm.type === 1;
-    }
   }
 };
 </script>

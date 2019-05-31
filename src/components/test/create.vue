@@ -10,12 +10,16 @@
       </vi-form-item>
 
       <component
-        v-for="groupName in visibleFormGroups"
+        v-for="groupName in formGroups"
+        v-show="isFormGroupVisible(groupName)"
         :ref="groupName"
         :key="groupName"
         :is="groupName"
+        :formVm="formVm"
         class="form-group"
-      />
+        @hide="hideFormGroup(groupName)"
+        @show="showFormGroup(groupName)"
+      ></component>
 
       <vi-button @click="submit">submit</vi-button>
       <vi-button @click="reset">reset</vi-button>

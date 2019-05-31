@@ -13,9 +13,14 @@ export default {
   name: "form-item-id",
   extends: dfFormItem,
   computed: {
-    ...mapState("formItemId", ["id", "name"]),
-    hidden() {
-      return this.formGroupVm.index === 1;
+    ...mapState("formItemId", ["id", "name"])
+  },
+  watch: {
+    "formGroupVm.index": {
+      handler(value) {
+        this.toggle(() => value === 1);
+      },
+      immediate: true
     }
   },
   methods: {

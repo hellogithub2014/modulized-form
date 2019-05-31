@@ -2,13 +2,26 @@
 import { mapGetters } from "vuex";
 
 export default {
-  computed: {
-    ...mapGetters(["formData"]),
-    formVm() {
-      return this.formGroupVm.formVm;
+  props: {
+    formGroupVm: {
+      type: Object,
+      required: true
     },
-    formGroupVm() {
-      return this.$parent;
+    formVm: {
+      type: Object,
+      required: true
+    }
+  },
+  computed: {
+    ...mapGetters(["formData"])
+  },
+  methods: {
+    toggle(hideFunc) {
+      if (hideFunc()) {
+        this.$emit("hide");
+      } else {
+        this.$emit("show");
+      }
     }
   }
 };

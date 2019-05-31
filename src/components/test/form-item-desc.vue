@@ -13,9 +13,6 @@ export default {
   extends: dfFormItem,
   computed: {
     ...mapState("formItemDesc", ["desc"]),
-    hidden() {
-      return this.formData.a === 10;
-    },
     rules() {
       return [
         {
@@ -23,6 +20,13 @@ export default {
           trigger: "blur"
         }
       ];
+    }
+  },
+  watch: {
+    "formData.a": {
+      handler(value) {
+        this.toggle(() => value === 10);
+      }
     }
   },
   methods: {

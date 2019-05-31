@@ -10,11 +10,16 @@
     </div>
 
     <component
-      v-for="itemName in visibleFormItems"
+      v-for="itemName in formItems"
+      v-show="isFormItemVisible(itemName)"
       :ref="itemName"
       :key="itemName"
       :is="itemName"
+      :formVm="formVm"
+      :formGroupVm="formGroupVm"
       class="form-item"
+      @hide="hideFormItem(itemName)"
+      @show="showFormItem(itemName)"
     />
   </div>
 </template>
@@ -37,11 +42,13 @@ export default {
       formItems: ["form-item-id", "form-item-name"]
     };
   },
-  computed: {
-    // TODO:
-    hidden(formVm) {
-      return formVm.type === 1;
-    }
+  watch: {
+    "formVm.type": {
+      handler(value) {
+        this.toggle(() => value === 1);
+      }
+    },
+    immediate: true
   }
 };
 </script>
