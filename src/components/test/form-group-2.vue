@@ -11,8 +11,6 @@
       :formVm="formVm"
       :formGroupVm="formGroupVm"
       class="form-item"
-      @hide="hideFormItem(itemName)"
-      @show="showFormItem(itemName)"
     />
   </div>
 </template>

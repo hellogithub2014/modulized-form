@@ -17,8 +17,6 @@
         :is="groupName"
         :formVm="formVm"
         class="form-group"
-        @hide="hideFormGroup(groupName)"
-        @show="showFormGroup(groupName)"
       ></component>
 
       <vi-button @click="submit">submit</vi-button>
@@ -46,7 +44,7 @@ export default {
     };
   },
   mounted() {
-    this.initFormGroups(["form-group-1", "form-group-2"]);
+    this.initFormGroups(["form-group-1", "form-group-2"]); // 数组内部传递gorm-group组件id
 
     this.fillForm({
       a: 1,

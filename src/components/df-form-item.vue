@@ -1,5 +1,5 @@
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 
 export default {
   props: {
@@ -16,11 +16,12 @@ export default {
     ...mapGetters(["formData"])
   },
   methods: {
+    ...mapMutations("formGroup", ["hideFormItem", "showFormItem"]),
     toggleVisible(hideFunc) {
       if (hideFunc()) {
-        this.$emit("hide");
+        this.hideFormItem(this.$options.name);
       } else {
-        this.$emit("show");
+        this.showFormItem(this.$options.name);
       }
     }
   }

@@ -1,7 +1,9 @@
 export default {
-  state: {
-    formItems: [],
-    hiddenFormItems: []
+  state () {
+    return {
+      formItems: [],
+      hiddenFormItems: []
+    }
   },
   getters: {
     visibleFormItems ( state ) {
@@ -32,13 +34,13 @@ export default {
     },
   },
   actions: {
-    toggleVisible ( { commit, dispatch }, hideFunc ) {
+    toggleFormGroup ( { commit }, hideFunc, groupName ) {
       if ( hideFunc() )
       {
-        dispatch( "hide" ); // TODO: 调用root的action
+        commit( 'hideFormGroup', groupName, { root: true } )
       } else
       {
-        dispatch( "show" );
+        commit( 'showFormGroup', groupName, { root: true } )
       }
     }
   }

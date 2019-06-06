@@ -20,7 +20,10 @@ export default {
       "hideFormItem",
       "showFormItem"
     ]),
-    ...mapActions("formGroup", ["toggleVisible"])
+    ...mapActions("formGroup", ["toggleFormGroup"]),
+    toggleVisible(hideFunc) {
+      this.toggleFormGroup(hideFunc, this.$options.name);
+    }
   }
 };
 </script>

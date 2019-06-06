@@ -1,11 +1,12 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import modules from './modules';
+import formItemModules from './form-items';
+import formGroupModule from './form-group';
 
 Vue.use( Vuex );
 
 const fillPlugin = store => {
-  const moduleKeys = Object.keys( modules );
+  const moduleKeys = Object.keys( formItemModules );
   const moniteTypes = moduleKeys.map( moduleKey => `${ moduleKey }/update` );
 
   let dispatched = false; // 避免无限循环
@@ -83,13 +84,16 @@ const store = new Vuex.Store( {
       }
     }
   },
-  modules,
   actions: {
     fillForm ( { dispatch, commit, getters }, backendData ) {
       Object.keys( modules ).forEach( ( moduleKey ) => {
         dispatch( `${ moduleKey }/data2State`, backendData )
       } );
     },
+  },
+  modules: {
+    ...formItemModules,
+    formGroup: formGroupModule,
   },
   plugins: [ fillPlugin ],
 } );
