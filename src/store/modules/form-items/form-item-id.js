@@ -7,15 +7,15 @@ export default {
   getters: {
     formItemData ( state ) {
       return {
-        a: +state.id
+        id: +state.id
       };
     },
   },
   actions: {
     data2State ( { commit }, formData ) {
       commit( 'update', {
-        id: formData.a,
-        name: formData.b
+        id: formData.id,
+        name: formData.name
       } )
     }
   }

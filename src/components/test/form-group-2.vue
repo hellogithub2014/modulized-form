@@ -40,7 +40,7 @@ export default {
     ...mapGetters("formGroup2", ["isFormItemVisible"])
   },
   mounted() {
-    this.initFormItems(["form-item-text", "form-item-desc"]);
+    this.initFormItems(["form-item-desc", "form-item-text"]);
   },
   methods: {
     ...mapMutations("formGroup2", [

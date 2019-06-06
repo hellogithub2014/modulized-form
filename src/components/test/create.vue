@@ -49,10 +49,10 @@ export default {
     this.initFormGroups(["form-group-1", "form-group-2"]); // 数组内部传递gorm-group组件id
 
     this.fillForm({
-      a: 1,
-      b: 2,
-      c: 3,
-      d: 4
+      id: 1,
+      name: 2,
+      desc: 3,
+      text: 4
     });
   },
   methods: {

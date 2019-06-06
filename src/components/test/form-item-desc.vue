@@ -23,7 +23,7 @@ export default {
     }
   },
   watch: {
-    "formData.a": {
+    "formData.id": {
       handler(value) {
         this.toggleVisible(() => value === 10);
       }
