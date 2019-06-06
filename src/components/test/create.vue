@@ -42,11 +42,12 @@ export default {
   },
   data() {
     return {
-      type: 3,
-      formGroups: ["form-group-1", "form-group-2"]
+      type: 3
     };
   },
   mounted() {
+    this.initFormGroups(["form-group-1", "form-group-2"]);
+
     this.fillForm({
       a: 1,
       b: 2,

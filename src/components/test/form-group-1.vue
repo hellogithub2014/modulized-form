@@ -38,9 +38,11 @@ export default {
   },
   data() {
     return {
-      index: 0,
-      formItems: ["form-item-id", "form-item-name"]
+      index: 0
     };
+  },
+  mounted() {
+    this.initFormItems(["form-item-id", "form-item-name"]);
   },
   watch: {
     "formVm.type": {

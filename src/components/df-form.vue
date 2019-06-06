@@ -1,15 +1,11 @@
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapActions, mapGetters, mapState, mapMutations } from "vuex";
 
 export default {
-  data() {
-    return {
-      hiddenFormGroups: []
-    };
-  },
   computed: {
-    visibleFormItems() {
+    ...mapState("hiddenFormGroups", "formGroups"),
+    visibleFormGroups() {
       return this.formGroups.filter(
         groupName => !this.hiddenFormGroups.includes(groupName)
       );
@@ -17,24 +13,11 @@ export default {
     formVm() {
       return this;
     },
-    ...mapGetters(["formData", "formModel"])
+    ...mapGetters(["formData", "formModel", "isFormGroupVisible"])
   },
   methods: {
-    ...mapActions(["fillForm"]),
-    isFormGroupVisible(groupName) {
-      return !this.hiddenFormGroups.includes(groupName);
-    },
-    hideFormGroup(groupName) {
-      if (this.isFormGroupVisible(groupName)) {
-        this.hiddenFormGroups.push(groupName);
-      }
-    },
-    showFormGroup(groupName) {
-      const index = this.hiddenFormGroups.indexOf(groupName);
-      if (index > -1) {
-        this.hiddenFormGroups.splice(index, 1);
-      }
-    }
+    ...mapMutations("initFormGroups", "hideFormGroup", "showFormGroup"),
+    ...mapActions(["fillForm"])
   }
 };
 </script>

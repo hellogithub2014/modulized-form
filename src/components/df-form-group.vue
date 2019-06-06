@@ -1,4 +1,5 @@
 <script>
+import { mapState, mapGetters, mapActions, mapMutations } from "vuex";
 export default {
   props: {
     formVm: {
@@ -6,43 +7,20 @@ export default {
       required: true
     }
   },
-  data() {
-    return {
-      hiddenFormItems: []
-    };
-  },
   computed: {
-    visibleFormItems() {
-      return this.formItems.filter(
-        itemName => !this.hiddenFormItems.includes(itemName)
-      );
-    },
+    ...mapState("formGroup", ["formItems", "hiddenFormItems"]),
+    ...mapGetters("formGroup", ["isFormItemVisible"]),
     formGroupVm() {
       return this;
     }
   },
   methods: {
-    isFormItemVisible(itemName) {
-      return !this.hiddenFormItems.includes(itemName);
-    },
-    hideFormItem(itemName) {
-      if (this.isFormItemVisible(itemName)) {
-        this.hiddenFormItems.push(itemName);
-      }
-    },
-    showFormItem(itemName) {
-      const index = this.hiddenFormItems.indexOf(itemName);
-      if (index > -1) {
-        this.hiddenFormItems.splice(index, 1);
-      }
-    },
-    toggleVisible(hideFunc) {
-      if (hideFunc()) {
-        this.$emit("hide");
-      } else {
-        this.$emit("show");
-      }
-    }
+    ...mapMutations("formGroup", [
+      "initFormItems",
+      "hideFormItem",
+      "showFormItem"
+    ]),
+    ...mapActions("formGroup", ["toggleVisible"])
   }
 };
 </script>

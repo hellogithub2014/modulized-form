@@ -31,9 +31,11 @@ export default {
   },
   data() {
     return {
-      index: 1,
-      formItems: ["form-item-text", "form-item-desc"]
+      index: 1
     };
+  },
+  mounted() {
+    this.initFormItems(["form-item-text", "form-item-desc"]);
   }
 };
 </script>
