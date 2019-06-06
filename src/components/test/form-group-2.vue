@@ -11,18 +11,21 @@
       :formVm="formVm"
       :formGroupVm="formGroupVm"
       class="form-item"
+      @hide="hideFormItem(itemName)"
+      @show="showFormItem(itemName)"
     />
   </div>
 </template>
 
 <script>
-import dfFormGroup from "../df-form-group";
+import { mapState, mapGetters, mapMutations } from "vuex";
+import formGroupMixin from "../formGroupMixin";
 import formItemDesc from "./form-item-desc";
 import formItemText from "./form-item-text";
 
 export default {
   name: "form-group-2",
-  extends: dfFormGroup,
+  mixins: [formGroupMixin],
   components: {
     formItemDesc,
     formItemText
@@ -32,8 +35,19 @@ export default {
       index: 1
     };
   },
+  computed: {
+    ...mapState("formGroup2", ["formItems"]),
+    ...mapGetters("formGroup2", ["isFormItemVisible"])
+  },
   mounted() {
     this.initFormItems(["form-item-text", "form-item-desc"]);
+  },
+  methods: {
+    ...mapMutations("formGroup2", [
+      "initFormItems",
+      "hideFormItem",
+      "showFormItem"
+    ])
   }
 };
 </script>

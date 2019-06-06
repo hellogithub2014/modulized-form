@@ -17,6 +17,8 @@
         :is="groupName"
         :formVm="formVm"
         class="form-group"
+        @hide="hideFormGroup(groupName)"
+        @show="showFormGroup(groupName)"
       ></component>
 
       <vi-button @click="submit">submit</vi-button>
@@ -27,13 +29,13 @@
 </template>
 
 <script>
-import dfForm from "../df-form";
+import formMixin from "../formMixin";
 
 import formGroup1 from "./form-group-1";
 import formGroup2 from "./form-group-2";
 
 export default {
-  extends: dfForm,
+  mixins: [formMixin],
   components: {
     formGroup1,
     formGroup2

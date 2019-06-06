@@ -8,12 +8,12 @@
 </template>
 
 <script>
-import dfFormItem from "../df-form-item";
+import formItemMixin from "../formItemMixin";
 import { mapState, mapMutations } from "vuex";
 
 export default {
   name: "form-item-name",
-  extends: dfFormItem,
+  mixins: [formItemMixin],
   data() {
     return {
       count: 0

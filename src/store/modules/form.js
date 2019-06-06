@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import formItemModules from './form-items';
-import formGroupModule from './form-group';
+import formGroupModules from './form-groups';
 
 Vue.use( Vuex );
 
@@ -40,8 +40,8 @@ const store = new Vuex.Store( {
   },
   getters: {
     // 用于表单校验
-    formModel ( state, getters ) {
-      return Object.keys( modules ).reduce( ( result, moduleKey ) => {
+    formModel ( state ) {
+      return Object.keys( formItemModules ).reduce( ( result, moduleKey ) => {
         return {
           ...result,
           [ moduleKey ]: state[ moduleKey ]
@@ -50,7 +50,7 @@ const store = new Vuex.Store( {
     },
     // 用于后端接口
     formData ( state, getters ) {
-      return Object.keys( modules ).reduce( ( result, moduleKey ) => {
+      return Object.keys( formItemModules ).reduce( ( result, moduleKey ) => {
         return {
           ...result,
           ...getters[ `${ moduleKey }/formItemData` ]
@@ -85,15 +85,15 @@ const store = new Vuex.Store( {
     }
   },
   actions: {
-    fillForm ( { dispatch, commit, getters }, backendData ) {
-      Object.keys( modules ).forEach( ( moduleKey ) => {
+    fillForm ( { dispatch }, backendData ) {
+      Object.keys( formItemModules ).forEach( ( moduleKey ) => {
         dispatch( `${ moduleKey }/data2State`, backendData )
       } );
     },
   },
   modules: {
     ...formItemModules,
-    formGroup: formGroupModule,
+    ...formGroupModules,
   },
   plugins: [ fillPlugin ],
 } );

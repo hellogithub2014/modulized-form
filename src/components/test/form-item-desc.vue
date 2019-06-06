@@ -5,12 +5,12 @@
 </template>
 
 <script>
-import dfFormItem from "../df-form-item";
+import formItemMixin from "../formItemMixin";
 import { mapState, mapMutations } from "vuex";
 
 export default {
   name: "form-item-desc",
-  extends: dfFormItem,
+  mixins: [formItemMixin],
   computed: {
     ...mapState("formItemDesc", ["desc"]),
     rules() {

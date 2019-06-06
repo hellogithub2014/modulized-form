@@ -8,25 +8,25 @@ export default {
   getters: {
     visibleFormItems ( state ) {
       return state.formItems.filter(
-        itemName => !state.hiddenFormItems.includes( itemName )
+        formItemName => !state.hiddenFormItems.includes( formItemName )
       );
     },
     isFormItemVisible ( state ) {
-      return ( itemName ) => !state.hiddenFormItems.includes( itemName );
+      return ( formItemName ) => !state.hiddenFormItems.includes( formItemName );
     },
   },
   mutations: {
     initFormItems ( state, formItems ) {
       state.formItems = formItems;
     },
-    hideFormItem ( state, itemName ) {
-      if ( !state.hiddenFormItems.includes( itemName ) )
+    hideFormItem ( state, formItemName ) {
+      if ( !state.hiddenFormItems.includes( formItemName ) )
       {
-        state.hiddenFormItems.push( itemName );
+        state.hiddenFormItems.push( formItemName );
       }
     },
-    showFormItem ( state, itemName ) {
-      const index = state.hiddenFormItems.indexOf( itemName );
+    showFormItem ( state, formItemName ) {
+      const index = state.hiddenFormItems.indexOf( formItemName );
       if ( index > -1 )
       {
         state.hiddenFormItems.splice( index, 1 );
