@@ -1,3 +1,6 @@
 export default {
-  namespaced: true
+  namespaced: true,
+  state: {
+    index: 0
+  }
 }

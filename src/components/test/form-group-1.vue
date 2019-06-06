@@ -38,13 +38,8 @@ export default {
     formItemId,
     formItemName
   },
-  data() {
-    return {
-      index: 0
-    };
-  },
   computed: {
-    ...mapState("formGroup1", ["formItems"]),
+    ...mapState("formGroup1", ["formItems", "index"]),
     ...mapGetters("formGroup1", ["isFormItemVisible"])
   },
   mounted() {

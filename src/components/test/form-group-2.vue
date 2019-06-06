@@ -30,11 +30,6 @@ export default {
     formItemDesc,
     formItemText
   },
-  data() {
-    return {
-      index: 1
-    };
-  },
   computed: {
     ...mapState("formGroup2", ["formItems"]),
     ...mapGetters("formGroup2", ["isFormItemVisible"])

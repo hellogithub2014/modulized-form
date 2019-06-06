@@ -14,19 +14,16 @@ import { mapState, mapMutations } from "vuex";
 export default {
   name: "form-item-name",
   mixins: [formItemMixin],
-  data() {
-    return {
-      count: 0
-    };
-  },
   computed: {
-    ...mapState("formItemName", ["name"])
+    ...mapState("formItemName", ["name", "count"])
   },
   methods: {
-    ...mapMutations("formItemName", ["update"]),
+    ...mapMutations("formItemName", ["update", "addCount"]),
     updateName() {
+      this.addCount();
+
       this.update({
-        name: this.name + `-> ${this.count++}`
+        name: this.name + `-> ${this.count}`
       });
     }
   }
