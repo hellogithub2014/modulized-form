@@ -1,9 +1,6 @@
 import formItemModules from './form-items';
 import formGroupModules from './form-groups';
 
-const a = formItemModules;
-const b = formGroupModules;
-
 const fillPlugin = store => {
   const moduleKeys = Object.keys( formItemModules );
   const moniteTypes = moduleKeys.map( moduleKey => `${ moduleKey }/update` );
