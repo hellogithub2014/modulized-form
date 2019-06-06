@@ -3,14 +3,14 @@ import { mapActions, mapGetters, mapState, mapMutations } from "vuex";
 
 export default {
   computed: {
-    ...mapState( "formGroups" ),
+    ...mapState( [ "formGroups" ] ),
     formVm () {
       return this;
     },
     ...mapGetters( [ "formData", "formModel", "isFormGroupVisible" ] )
   },
   methods: {
-    ...mapMutations( "initFormGroups", "hideFormGroup", "showFormGroup" ),
+    ...mapMutations( [ "initFormGroups", "hideFormGroup", "showFormGroup" ] ),
     ...mapActions( [ "fillForm" ] )
   }
 };

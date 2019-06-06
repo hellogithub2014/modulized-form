@@ -4,14 +4,14 @@ export default {
     desc: ''
   },
   getters: {
-    formItemData ( state, getters, rootState ) {
+    formItemData ( state ) {
       return {
         c: state.desc
       };
     },
   },
   actions: {
-    data2State ( { state, commit, rootState }, formData ) {
+    data2State ( { commit }, formData ) {
       commit( 'update', {
         desc: formData.c
       } )

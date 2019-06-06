@@ -5,14 +5,14 @@ export default {
     name: '',
   },
   getters: {
-    formItemData ( state, getters, rootState ) {
+    formItemData ( state ) {
       return {
         a: +state.id
       };
     },
   },
   actions: {
-    data2State ( { state, commit, rootState }, formData ) {
+    data2State ( { commit }, formData ) {
       commit( 'update', {
         id: formData.a,
         name: formData.b

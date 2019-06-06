@@ -22,6 +22,7 @@ export default function ( childModule, baseModule ) {
   } )
 
   return {
+    namespaced: childModule.namespaced || baseModule.namespaced || false,
     state: mergedState,
     getters: merge( 'getters' ),
     mutations: merge( 'mutations' ),

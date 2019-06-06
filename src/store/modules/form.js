@@ -1,9 +1,8 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
 import formItemModules from './form-items';
 import formGroupModules from './form-groups';
 
-Vue.use( Vuex );
+const a = formItemModules;
+const b = formGroupModules;
 
 const fillPlugin = store => {
   const moduleKeys = Object.keys( formItemModules );
@@ -26,14 +25,15 @@ const fillPlugin = store => {
           store.dispatch( `${ moduleKeys[ curIndex ] }/data2State`, store.getters.formData )
         }
       } )
-      Vue.nextTick( () => {
+      setTimeout( () => {
         dispatched = false;
-      } )
+      }, 0 )
     }
   } );
 };
 
-const store = new Vuex.Store( {
+export default {
+  // namespaced: true,
   state: {
     hiddenFormGroups: [],
     formGroups: []
@@ -96,6 +96,4 @@ const store = new Vuex.Store( {
     ...formGroupModules,
   },
   plugins: [ fillPlugin ],
-} );
-
-export default store;
+}

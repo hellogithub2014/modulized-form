@@ -4,14 +4,14 @@ export default {
     text: '',
   },
   getters: {
-    formItemData ( state, getters, rootState ) {
+    formItemData ( state ) {
       return {
         d: state.text,
       };
     },
   },
   actions: {
-    data2State ( { state, commit, rootState }, formData ) {
+    data2State ( { commit }, formData ) {
       commit( 'update', {
         text: formData.d
       } )

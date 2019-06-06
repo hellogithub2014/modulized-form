@@ -57,9 +57,8 @@ export default {
   },
   methods: {
     submit() {
-      this.$refs.form.validate((valid, fields) => {
+      this.$refs.form.validate(valid => {
         if (!valid) {
-          console.error(fields);
           return;
         }
       });
