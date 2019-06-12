@@ -1,22 +1,21 @@
 <template>
   <!-- prop就是组件name -->
   <vi-form-item prop="form-item-id" label="id">
+    <h4>form-group-1.index ===1时隐藏</h4>
     <vi-input :value="id" @blur="updateId"></vi-input>
     <p>name: {{ name }}</p>
   </vi-form-item>
 </template>
 
 <script>
-import formItemMixin from "../formItemMixin";
 import { mapState, mapMutations, mapGetters } from "vuex";
 
 export default {
   name: "form-item-id",
-  mixins: [formItemMixin],
   computed: {
     ...mapGetters("demo", ["formData"]),
     ...mapState("demo/form-group-1", ["index"]),
-    ...mapState("demo/form-item-id", ["id", "name"])
+    ...mapState("demo/form-group-1/form-item-id", ["id", "name"])
   },
   watch: {
     index: {
@@ -27,7 +26,10 @@ export default {
     }
   },
   methods: {
-    ...mapMutations("demo/form-item-id", ["update"]),
+    ...mapMutations("demo/form-group-1/form-item-id", [
+      "update",
+      "toggleVisible"
+    ]),
     updateId(event) {
       this.update({
         id: event.target.value

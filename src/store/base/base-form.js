@@ -5,104 +5,59 @@ export default {
     }
   },
   getters: {
-    // 集合了所有下属表单项的state
+    /**
+     * 集合表单所有下属表单项的state
+     * {
+     *   'form-item-1': formItem1State,
+     *   'form-item-2': formItem2State
+     * }
+     */
     formModel ( state, getters ) {
-      return getters.formItemModuleKeys.reduce( ( model, formItemModuleKey ) => ( {
+      return state.formGroups.reduce( ( model, formGroupModuleKey ) => ( {
         ...model,
-        [ formItemModuleKey ]: state[ formItemModuleKey ],
+        ...getters[ `${ formGroupModuleKey }/formGroupModel` ],
       } ), {} )
     },
-    // 用于后端接口
+    /**
+     * 表单用于后端接口提交的数据, 所有数据全部打平
+     * {
+     *   key1: value1,
+     *   key2: value2,
+     *   key3: value3,
+     * }
+     */
     formData ( state, getters ) {
-      return getters.formItemModuleKeys.reduce( ( data, formItemModuleKey ) => ( {
+      return state.formGroups.reduce( ( data, formGroupModuleKey ) => ( {
         ...data,
-        ...getters[ `${ formItemModuleKey }/formItemData` ]
+        ...getters[ `${ formGroupModuleKey }/formGroupData` ],
       } ), {} )
-    },
-    getFormGroupIndex ( state ) {
-      return formGroupName => {
-        return state.formGroups.findIndex( ( { name } ) => name === formGroupName );
-      }
-    },
-    getFormGroup ( state ) {
-      return formGroupName => {
-        return state.formGroups.find( ( { name } ) => name === formGroupName );
-      }
     },
     isFormGroupVisible ( state, getters ) {
-      return formGroupName => {
-        const target = getters.getFormGroup( formGroupName );
-        if ( !target )
-        {
-          return false;
-        }
-        return !target.hidden;
-      }
+      return formGroupName => getters[ `${ formGroupName }/isVisible` ];
     },
-    // 所有下属表单项module的key
-    formItemModuleKeys ( state ) {
+    // 表单所有下属表单项module的namespace path
+    formItemModulePaths ( state ) {
       let keys = [];
 
-      state.formGroups.forEach( ( { name: formGroupModuleKey } ) => {
+      state.formGroups.forEach( formGroupModuleKey => {
         const { formItems = [] } = state[ formGroupModuleKey ];
-        formItems.forEach( ( { name: formItemModuleKey } ) => keys.push( formItemModuleKey ) );
+        formItems.forEach( ( formItemModuleKey ) => keys.push( `${ formGroupModuleKey }/${ formItemModuleKey }` ) );
       } );
 
       return keys;
-    },
-    // 一个便捷方法，用于下属任意一个formItemModule判断自身是否显示，而不用写死namespace来查询
-    isFormItemVisible ( state, getters ) {
-      return formItemName => {
-        let visible = false;
-        for ( const formGroup of state.formGroups )
-        {
-          // 当所属的form group是隐藏的时，认为下属form item也是隐藏的
-          if ( formGroup.hidden )
-          {
-            continue;
-          }
-          // 无脑查询此form item在当前form group中是否为显示的，不在其下也一并返回false
-          if ( getters[ `${ formGroup.name }/isFormItemVisible` ]( formItemName ) )
-          {
-            visible = true;
-            break;
-          }
-        }
-        return visible;
-      }
     },
   },
   mutations: {
     // 用于在vuex中管理组件的显式隐藏。 formGroupComps: formGroup组件数组.
     initFormGroups ( state, formGroupComps = [] ) {
-      state.formGroups = formGroupComps.map( comp => ( { name: comp.name, hidden: false } ) );
-    },
-    toggleFormGroup ( state, { index, hidden } ) {
-      if ( index > -1 )
-      {
-        state.formGroups.splice( index, 1, {
-          ...state.formGroups[ index ],
-          hidden: !!hidden,
-        } );
-      }
+      state.formGroups = formGroupComps.map( comp => comp.name );
     },
   },
   actions: {
-    hideFormGroup ( { getters, commit }, formGroupName ) {
-      commit( "toggleFormGroup", {
-        index: getters.getFormGroupIndex( formGroupName ),
-        hidden: true,
-      } )
-    },
-    showFormGroup ( { getters, commit }, formGroupName ) {
-      commit( "toggleFormGroup", {
-        index: getters.getFormGroupIndex( formGroupName ),
-        hidden: false,
-      } )
-    },
-    fillForm ( { dispatch, getters }, backendData ) {
+    fillForm ( { dispatch, state }, backendData ) {
       setTimeout( () => {
-        getters.formItemModuleKeys.forEach( ( formItemModuleKey ) => dispatch( `${ formItemModuleKey }/data2State`, backendData ) )
+        // 分发到每个form group
+        state.formGroups.forEach( ( formGroupModuleKey ) => dispatch( `${ formGroupModuleKey }/fillFormGroup`, backendData ) )
       } )
     },
   },

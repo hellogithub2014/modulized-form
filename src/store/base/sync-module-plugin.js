@@ -6,8 +6,8 @@ export default function createSyncPlugin ( namespace ) {
 
     // 监听所有表单项module的mutation, 更新所有module到最新状态
     store.subscribe( ( mutation ) => {
-      const formItemModuleKeys = store.getters[ `${ namespace }/formItemModuleKeys` ];
-      const moniteTypes = formItemModuleKeys.map( key => `/${ key }/` );
+      const formItemModulePaths = store.getters[ `${ namespace }/formItemModulePaths` ];
+      const moniteTypes = formItemModulePaths.map( key => `/${ key }/` );
 
       const { type = '' } = mutation;
       const index = moniteTypes.findIndex( moniteType => type.includes( moniteType ) );
@@ -19,12 +19,11 @@ export default function createSyncPlugin ( namespace ) {
         moniteTypes.forEach( ( _, curIndex ) => {
           if ( curIndex !== index )
           {
-            store.dispatch( `${ namespace }/${ formItemModuleKeys[ curIndex ] }/data2State`, store.getters[ `${ namespace }/formData` ] )
+            store.dispatch( `${ namespace }/${ formItemModulePaths[ curIndex ] }/data2State`, store.getters[ `${ namespace }/formData` ] )
           }
         } )
-        // setTimeout( () => {
+        // store.dispatch( `${ namespace }/fillForm`, store.getters[ `${ namespace }/formData` ] )
         dispatched = false;
-        // }, 0 )
       }
     } );
   };

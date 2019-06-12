@@ -1,6 +1,7 @@
 <template>
   <div>
     <h2>Form Group 1</h2>
+    <h4>当form.type === 1时隐藏</h4>
     <div>
       <p>index: {{ index }}</p>
       <vi-radio-group :value="index" @input="updateIndex">
@@ -11,26 +12,22 @@
 
     <component
       v-for="formItem in formItems"
-      v-show="isFormItemVisible(formItem.name)"
-      :key="formItem.name"
-      :is="formItem.name"
+      v-show="isFormItemVisible(formItem)"
+      :key="formItem"
+      :is="formItem"
       class="form-item"
-      @hide="hideFormItem(formItem.name)"
-      @show="showFormItem(formItem.name)"
     />
   </div>
 </template>
 
 <script>
-import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
+import { mapState, mapGetters, mapMutations } from "vuex";
 
-import formGroupMixin from "../formGroupMixin";
 import formItemId from "./form-item-id";
 import formItemName from "./form-item-name";
 
 export default {
   name: "form-group-1",
-  mixins: [formGroupMixin],
   components: {
     formItemId,
     formItemName
@@ -57,8 +54,11 @@ export default {
     immediate: true
   },
   methods: {
-    ...mapMutations("demo/form-group-1", ["initFormItems", "updateIndex"]),
-    ...mapActions("demo/form-group-1", ["hideFormItem", "showFormItem"])
+    ...mapMutations("demo/form-group-1", [
+      "initFormItems",
+      "updateIndex",
+      "toggleVisible"
+    ])
   }
 };
 </script>

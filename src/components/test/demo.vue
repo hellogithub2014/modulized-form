@@ -11,12 +11,10 @@
 
       <component
         v-for="formGroup in formGroups"
-        v-show="isFormGroupVisible(formGroup.name)"
-        :key="formGroup.name"
-        :is="formGroup.name"
+        v-show="isFormGroupVisible(formGroup)"
+        :key="formGroup"
+        :is="formGroup"
         class="form-group"
-        @hide="hideFormGroup(formGroup.name)"
-        @show="showFormGroup(formGroup.name)"
       ></component>
 
       <vi-button @click="submit">submit</vi-button>
@@ -52,7 +50,7 @@ export default {
   },
   methods: {
     ...mapMutations("demo", ["initFormGroups", "updateType"]),
-    ...mapActions("demo", ["fillForm", "hideFormGroup", "showFormGroup"]),
+    ...mapActions("demo", ["fillForm"]),
     submit() {
       this.$refs.form.validate(valid => {
         if (!valid) {

@@ -1,19 +1,18 @@
 <template>
   <vi-form-item :rules="rules" prop="form-item-desc" label="desc">
+    <h4>formData.id===10时隐藏</h4>
     <vi-input :value="desc" @blur="updateDesc"></vi-input>
   </vi-form-item>
 </template>
 
 <script>
-import formItemMixin from "../formItemMixin";
 import { mapState, mapMutations, mapGetters } from "vuex";
 
 export default {
   name: "form-item-desc",
-  mixins: [formItemMixin],
   computed: {
     ...mapGetters("demo", ["formData"]),
-    ...mapState("demo/form-item-desc", ["desc"]),
+    ...mapState("demo/form-group-2/form-item-desc", ["desc"]),
     rules() {
       return [
         {
@@ -31,7 +30,10 @@ export default {
     }
   },
   methods: {
-    ...mapMutations("demo/form-item-desc", ["update"]),
+    ...mapMutations("demo/form-group-2/form-item-desc", [
+      "update",
+      "toggleVisible"
+    ]),
     largeThan10(rule, value, callback) {
       if (value.desc < 10) {
         callback(new Error("不能小于10"));

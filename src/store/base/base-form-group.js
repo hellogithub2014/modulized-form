@@ -1,3 +1,5 @@
+import Vue from 'vue';
+
 export default {
   state () {
     return {
@@ -5,54 +7,59 @@ export default {
     }
   },
   getters: {
-    getFormItemIndex ( state ) {
-      return formItemName => {
-        return state.formItems.findIndex( ( { name } ) => name === formItemName );
-      }
-    },
-    getFormItem ( state ) {
-      return formItemName => {
-        return state.formItems.find( ( { name } ) => name === formItemName );
-      }
+    isVisible ( state ) {
+      return !state._hidden;
     },
     isFormItemVisible ( state, getters ) {
-      return formItemName => {
-        const target = getters.getFormItem( formItemName );
-        if ( !target )
-        {
-          return false;
-        }
-        return !target.hidden;
-      }
+      return formItemName => getters[ `${ formItemName }/isVisible` ];
+    },
+    /**
+     * 集合form group所有下属表单项的state
+     * {
+     *   'form-item-1': formItem1State,
+     *   'form-item-2': formItem2State
+     * }
+     */
+    formGroupModel ( state ) {
+      return state.formItems.reduce( ( model, formItemModuleKey ) => ( {
+        ...model,
+        [ formItemModuleKey ]: state[ formItemModuleKey ],
+      } ), {} )
+    },
+    /**
+     * form group用于后端接口提交的数据, 所有数据全部打平
+     * {
+     *   key1: value1,
+     *   key2: value2,
+     *   key3: value3,
+     * }
+     */
+    formGroupData ( state, getters ) {
+      return state.formItems.reduce( ( data, formItemModuleKey ) => ( {
+        ...data,
+        ...getters[ `${ formItemModuleKey }/formItemData` ]
+      } ), {} )
     },
   },
   mutations: {
     // 用于在vuex中管理组件的显式隐藏。 formItemComps: 表单项组件数组.
     initFormItems ( state, formItemComps ) {
-      state.formItems = formItemComps.map( comp => ( { name: comp.name, hidden: false } ) );
+      state.formItems = formItemComps.map( comp => comp.name );
     },
-    toggleFormItem ( state, { index, hidden } ) {
-      if ( index > -1 )
+    toggleVisible ( state, hideFunc = () => false ) {
+      if ( hideFunc() )
       {
-        state.formItems.splice( index, 1, {
-          ...state.formItems[ index ],
-          hidden: !!hidden,
-        } );
+        Vue.set( state, '_hidden', true );
+      } else
+      {
+        Vue.set( state, '_hidden', false );
       }
     },
   },
   actions: {
-    hideFormItem ( { getters, commit }, formItemName ) {
-      commit( "toggleFormItem", {
-        index: getters.getFormItemIndex( formItemName ),
-        hidden: true,
-      } )
+    fillFormGroup ( { state, dispatch }, backendData ) {
+      // 每个form item自身决定取哪些数据
+      state.formItems.forEach( ( formItemModuleKey ) => dispatch( `${ formItemModuleKey }/data2State`, backendData ) )
     },
-    showFormItem ( { getters, commit }, formItemName ) {
-      commit( "toggleFormItem", {
-        index: getters.getFormItemIndex( formItemName ),
-        hidden: false,
-      } )
-    },
-  }
+  },
 };

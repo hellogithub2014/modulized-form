@@ -7,11 +7,14 @@ export default {
     },
   },
   mutations: {
-    hide ( state ) {
-      Vue.set( state, '_hidden', true );
-    },
-    show ( state ) {
-      Vue.set( state, '_hidden', false );
+    toggleVisible ( state, hideFunc = () => false ) {
+      if ( hideFunc() )
+      {
+        Vue.set( state, '_hidden', true );
+      } else
+      {
+        Vue.set( state, '_hidden', false );
+      }
     },
     update ( state, newState ) {
       Object.keys( newState ).forEach( key => {

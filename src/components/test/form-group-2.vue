@@ -4,25 +4,21 @@
 
     <component
       v-for="formItem in formItems"
-      v-show="isFormItemVisible(formItem.name)"
-      :key="formItem.name"
-      :is="formItem.name"
+      v-show="isFormItemVisible(formItem)"
+      :key="formItem"
+      :is="formItem"
       class="form-item"
-      @hide="hideFormItem(formItem.name)"
-      @show="showFormItem(formItem.name)"
     />
   </div>
 </template>
 
 <script>
-import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
-import formGroupMixin from "../formGroupMixin";
+import { mapState, mapGetters, mapMutations } from "vuex";
 import formItemDesc from "./form-item-desc";
 import formItemText from "./form-item-text";
 
 export default {
   name: "form-group-2",
-  mixins: [formGroupMixin],
   components: {
     formItemDesc,
     formItemText
@@ -36,8 +32,7 @@ export default {
     this.initFormItems([formItemDesc, formItemText]);
   },
   methods: {
-    ...mapMutations("demo/form-group-2", ["initFormItems"]),
-    ...mapActions("demo/form-group-2", ["hideFormItem", "showFormItem"])
+    ...mapMutations("demo/form-group-2", ["initFormItems", "toggleVisible"])
   }
 };
 </script>
