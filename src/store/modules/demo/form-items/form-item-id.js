@@ -1,20 +1,24 @@
-export default {
+import { extendsModule, baseFormItem } from '../../../base';
+
+export default extendsModule( baseFormItem, {
   namespaced: true,
   state: {
-    desc: ''
+    id: '',
+    name: '',
   },
   getters: {
     formItemData ( state ) {
       return {
-        desc: state.desc
+        id: +state.id
       };
     },
   },
   actions: {
     data2State ( { commit }, formData ) {
       commit( 'update', {
-        desc: formData.desc
+        id: formData.id,
+        name: formData.name
       } )
     }
   }
-}
+} )

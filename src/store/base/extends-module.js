@@ -1,5 +1,10 @@
 // 继承module, 返回一个新的module，不会改变原有module
-export default function ( childModule, baseModule ) {
+export default function ( baseModule, childModule = {} ) {
+  if ( !baseModule )
+  {
+    return childModule;
+  }
+
   // state的合并比较麻烦，因为state可以是一个函数
   const { state: baseState } = baseModule;
   // 归一化baseModule的state
@@ -16,17 +21,18 @@ export default function ( childModule, baseModule ) {
       ...( childState || {} )
     };
 
-  const merge = ( prop ) => ( {
-    ...( baseModule[ prop ] || {} ),
-    ...( childModule[ prop ] || {} ),
+  const merge = ( prop, defaultValue = {} ) => ( {
+    ...( baseModule[ prop ] || defaultValue ),
+    ...( childModule[ prop ] || defaultValue ),
   } )
 
   return {
-    namespaced: childModule.namespaced || baseModule.namespaced || false,
+    namespaced: childModule.namespaced || baseModule.namespaced || true,
     state: mergedState,
     getters: merge( 'getters' ),
     mutations: merge( 'mutations' ),
     actions: merge( 'actions' ),
     modules: merge( 'modules' ),
+    plugins: merge( 'plugins', [] ),
   }
 }

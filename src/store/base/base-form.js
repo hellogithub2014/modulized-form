@@ -1,16 +1,14 @@
-import formItemModules from './form-items';
-import formGroupModules from './form-groups';
 
 const fillPlugin = store => {
-  const moduleKeys = Object.keys( formItemModules );
-  const moniteTypes = moduleKeys.map( moduleKey => `${ moduleKey }/update` );
+  const moduleKeys = Object.keys( store.state.formItemModules );
+  const moniteTypes = moduleKeys.map( moduleKey => `${ moduleKey }/` );
 
   let dispatched = false; // 避免无限循环
 
+  // 监听所有表单项module的mutation, 更新所有module到最新状态
   store.subscribe( ( mutation ) => {
     const { type = '' } = mutation;
-
-    const index = moniteTypes.indexOf( type );
+    const index = moniteTypes.findIndex( moniteType => type.startsWith( moniteType ) );
 
     // 每次有某个module触发update的mutation时，联动其他module的state更新到最新，因为可能有互相依赖
     if ( index > -1 && !dispatched )
@@ -31,14 +29,16 @@ const fillPlugin = store => {
 
 export default {
   // namespaced: true,
-  state: {
-    hiddenFormGroups: [],
-    formGroups: []
+  state () {
+    return {
+      hiddenFormGroups: [],
+      formGroups: []
+    }
   },
   getters: {
     // 用于表单校验
     formModel ( state ) {
-      return Object.keys( formItemModules ).reduce( ( result, moduleKey ) => {
+      return Object.keys( state.formItemModules ).reduce( ( result, moduleKey ) => {
         return {
           ...result,
           [ moduleKey ]: state[ moduleKey ]
@@ -47,7 +47,7 @@ export default {
     },
     // 用于后端接口
     formData ( state, getters ) {
-      return Object.keys( formItemModules ).reduce( ( result, moduleKey ) => {
+      return Object.keys( state.formItemModules ).reduce( ( result, moduleKey ) => {
         return {
           ...result,
           ...getters[ `${ moduleKey }/formItemData` ]
@@ -82,15 +82,11 @@ export default {
     }
   },
   actions: {
-    fillForm ( { dispatch }, backendData ) {
-      Object.keys( formItemModules ).forEach( ( moduleKey ) => {
+    fillForm ( { state, dispatch }, backendData ) {
+      Object.keys( state.formItemModules ).forEach( ( moduleKey ) => {
         dispatch( `${ moduleKey }/data2State`, backendData )
       } );
     },
-  },
-  modules: {
-    ...formItemModules,
-    ...formGroupModules,
   },
   plugins: [ fillPlugin ],
 }
