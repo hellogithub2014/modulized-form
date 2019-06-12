@@ -2,7 +2,7 @@
   <div>
     <vi-form class="form" ref="form" :model="formModel" label-width="100px">
       <vi-form-item label="type">
-        <vi-select v-model="type" placeholder="请选择">
+        <vi-select @change="updateType" placeholder="请选择">
           <vi-option :label="1" :value="1"></vi-option>
           <vi-option :label="2" :value="2"></vi-option>
           <vi-option :label="3" :value="3"></vi-option>
@@ -15,7 +15,6 @@
         :ref="groupName"
         :key="groupName"
         :is="groupName"
-        :formVm="formVm"
         class="form-group"
         @hide="hideFormGroup(groupName)"
         @show="showFormGroup(groupName)"
@@ -29,21 +28,18 @@
 </template>
 
 <script>
-import formMixin from "../formMixin";
-
+import { mapState, mapMutations, mapGetters, mapActions } from "vuex";
 import formGroup1 from "./form-group-1";
 import formGroup2 from "./form-group-2";
 
 export default {
-  mixins: [formMixin],
   components: {
     formGroup1,
     formGroup2
   },
-  data() {
-    return {
-      type: 3
-    };
+  computed: {
+    ...mapState("demo", ["formGroups", "type"]),
+    ...mapGetters("demo", ["formData", "formModel", "isFormGroupVisible"])
   },
   mounted() {
     this.initFormGroups(["form-group-1", "form-group-2"]); // 数组内部传递gorm-group组件id
@@ -56,6 +52,13 @@ export default {
     });
   },
   methods: {
+    ...mapMutations("demo", [
+      "initFormGroups",
+      "hideFormGroup",
+      "showFormGroup",
+      "updateType"
+    ]),
+    ...mapActions(["fillForm"]),
     submit() {
       this.$refs.form.validate(valid => {
         if (!valid) {

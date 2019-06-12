@@ -6,13 +6,14 @@
 
 <script>
 import formItemMixin from "../formItemMixin";
-import { mapState, mapMutations } from "vuex";
+import { mapState, mapMutations, mapGetters } from "vuex";
 
 export default {
   name: "form-item-desc",
   mixins: [formItemMixin],
   computed: {
-    ...mapState("formItemDesc", ["desc"]),
+    ...mapGetters("demo", ["formData"]),
+    ...mapState("demo/formGroup2/formItemDesc", ["desc"]),
     rules() {
       return [
         {

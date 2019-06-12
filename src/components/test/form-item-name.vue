@@ -9,16 +9,17 @@
 
 <script>
 import formItemMixin from "../formItemMixin";
-import { mapState, mapMutations } from "vuex";
+import { mapState, mapMutations, mapGetters } from "vuex";
 
 export default {
   name: "form-item-name",
   mixins: [formItemMixin],
   computed: {
-    ...mapState("formItemName", ["name", "count"])
+    ...mapGetters("demo", ["formData"]),
+    ...mapState("demo/formGroup1/formItemName", ["name", "count"])
   },
   methods: {
-    ...mapMutations("formItemName", ["update", "addCount"]),
+    ...mapMutations("demo/formGroup1/formItemName", ["update", "addCount"]),
     updateName() {
       this.addCount();
 

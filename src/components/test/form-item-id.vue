@@ -7,16 +7,18 @@
 
 <script>
 import formItemMixin from "../formItemMixin";
-import { mapState, mapMutations } from "vuex";
+import { mapState, mapMutations, mapGetters } from "vuex";
 
 export default {
   name: "form-item-id",
   mixins: [formItemMixin],
   computed: {
-    ...mapState("formItemId", ["id", "name"])
+    ...mapGetters("demo", ["formData"]),
+    ...mapGetters("demo/formGroup1", ["index"]),
+    ...mapState("demo/formGroup1/formItemId", ["id", "name"])
   },
   watch: {
-    "formGroupVm.index": {
+    index: {
       handler(value) {
         this.toggleVisible(() => value === 1);
       },

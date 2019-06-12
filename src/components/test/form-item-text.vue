@@ -4,13 +4,14 @@
 
 <script>
 import formItemMixin from "../formItemMixin";
-import { mapState, mapMutations } from "vuex";
+import { mapState, mapMutations, mapGetters } from "vuex";
 
 export default {
   name: "form-item-text",
   mixins: [formItemMixin],
   computed: {
-    ...mapState("formItemText", ["text"])
+    ...mapGetters("demo", ["formData"]),
+    ...mapState("demo/formGroup2/formItemText", ["text"]) // TODO: 此处对所属的form、fromGroup产生了依赖
   },
   methods: {
     ...mapMutations("formItemText", ["update"])

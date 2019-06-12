@@ -31,14 +31,14 @@ export default {
     formItemText
   },
   computed: {
-    ...mapState("formGroup2", ["formItems"]),
-    ...mapGetters("formGroup2", ["isFormItemVisible"])
+    ...mapState("demo/formGroup2", ["formItems"]),
+    ...mapGetters("demo/formGroup2", ["isFormItemVisible"])
   },
   mounted() {
     this.initFormItems(["form-item-desc", "form-item-text"]);
   },
   methods: {
-    ...mapMutations("formGroup2", [
+    ...mapMutations("demo/formGroup2", [
       "initFormItems",
       "hideFormItem",
       "showFormItem"

@@ -1,14 +1,14 @@
 
 const fillPlugin = store => {
   const moduleKeys = Object.keys( store.state.formItemModules );
-  const moniteTypes = moduleKeys.map( moduleKey => `${ moduleKey }/` );
+  const moniteTypes = moduleKeys.map( moduleKey => `/${ moduleKey }/` );
 
   let dispatched = false; // 避免无限循环
 
   // 监听所有表单项module的mutation, 更新所有module到最新状态
   store.subscribe( ( mutation ) => {
     const { type = '' } = mutation;
-    const index = moniteTypes.findIndex( moniteType => type.startsWith( moniteType ) );
+    const index = moniteTypes.findIndex( moniteType => type.includes( moniteType ) );
 
     // 每次有某个module触发update的mutation时，联动其他module的state更新到最新，因为可能有互相依赖
     if ( index > -1 && !dispatched )

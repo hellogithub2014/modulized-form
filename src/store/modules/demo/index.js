@@ -8,6 +8,13 @@ export default extendsModule( baseForm, {
   state: {
     formItemModules,
     formGroupModules,
+
+    type: 3
+  },
+  mutations: {
+    updateType ( state, type ) {
+      state.type = type;
+    },
   },
   modules: {
     ...formItemModules,

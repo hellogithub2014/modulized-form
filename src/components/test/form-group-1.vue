@@ -39,14 +39,15 @@ export default {
     formItemName
   },
   computed: {
-    ...mapState("formGroup1", ["formItems", "index"]),
-    ...mapGetters("formGroup1", ["isFormItemVisible"])
+    ...mapState("demo", ["type"]),
+    ...mapState("demo/formGroup1", ["formItems", "index"]),
+    ...mapGetters("demo/formGroup1", ["isFormItemVisible"])
   },
   mounted() {
     this.initFormItems(["form-item-id", "form-item-name"]);
   },
   watch: {
-    "formVm.type": {
+    type: {
       handler(value) {
         this.toggleVisible(() => value === 1);
       }
@@ -54,7 +55,7 @@ export default {
     immediate: true
   },
   methods: {
-    ...mapMutations("formGroup1", [
+    ...mapMutations("demo/formGroup1", [
       "initFormItems",
       "hideFormItem",
       "showFormItem"
