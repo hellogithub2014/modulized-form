@@ -19,9 +19,6 @@ export default {
         ...getters[ `${ formItemModuleKey }/formItemData` ]
       } ), {} )
     },
-    visibleFormGroups ( state ) {
-      return state.formGroups.filter( ( { hidden } ) => !hidden );
-    },
     getFormGroupIndex ( state ) {
       return formGroupName => {
         return state.formGroups.findIndex( ( { name } ) => name === formGroupName );
@@ -42,6 +39,7 @@ export default {
         return !target.hidden;
       }
     },
+    // 所有下属表单项module的key
     formItemModuleKeys ( state ) {
       let keys = [];
 

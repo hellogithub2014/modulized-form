@@ -6,10 +6,17 @@ export default extendsModule( baseFormItem, {
     desc: ''
   },
   getters: {
-    formItemData ( state ) {
+    formItemData ( state, getters ) {
+      if ( getters.isVisible )
+      {
+        return {
+          desc: state.desc
+        };
+      }
+
       return {
-        desc: state.desc
-      };
+        desc: "",
+      }
     },
   },
   actions: {

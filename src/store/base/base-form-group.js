@@ -5,9 +5,6 @@ export default {
     }
   },
   getters: {
-    visibleFormItems ( state ) {
-      return state.formItems.filter( ( { hidden } ) => !hidden );
-    },
     getFormItemIndex ( state ) {
       return formItemName => {
         return state.formItems.findIndex( ( { name } ) => name === formItemName );
