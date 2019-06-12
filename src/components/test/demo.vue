@@ -20,7 +20,8 @@
       <vi-button @click="submit">submit</vi-button>
       <vi-button @click="reset">reset</vi-button>
     </vi-form>
-    <p>formData: {{ formData }}</p>
+    <p>formData4Submit: {{ formData4Submit }}</p>
+    <p>formData4View: {{formData4View}}</p>
   </div>
 </template>
 
@@ -36,7 +37,12 @@ export default {
   },
   computed: {
     ...mapState("demo", ["formGroups", "type"]),
-    ...mapGetters("demo", ["formData", "formModel", "isFormGroupVisible"])
+    ...mapGetters("demo", [
+      "formData4Submit",
+      "formData4View",
+      "formModel",
+      "isFormGroupVisible"
+    ])
   },
   mounted() {
     this.initFormGroups([formGroup1, formGroup2]);

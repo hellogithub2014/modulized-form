@@ -7,7 +7,12 @@ export default extendsModule( baseFormItem, {
     count: 0,
   },
   getters: {
-    formItemData ( state ) {
+    formItemData4Submit ( state ) {
+      return {
+        name: state.name
+      };
+    },
+    formItemData4View ( state ) {
       return {
         name: state.name
       };

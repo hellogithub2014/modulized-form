@@ -8,12 +8,11 @@
 </template>
 
 <script>
-import { mapState, mapMutations, mapGetters } from "vuex";
+import { mapState, mapMutations } from "vuex";
 
 export default {
   name: "form-item-id",
   computed: {
-    ...mapGetters("demo", ["formData"]),
     ...mapState("demo/form-group-1", ["index"]),
     ...mapState("demo/form-group-1/form-item-id", ["id", "name"])
   },

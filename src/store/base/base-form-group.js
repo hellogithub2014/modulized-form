@@ -34,10 +34,16 @@ export default {
      *   key3: value3,
      * }
      */
-    formGroupData ( state, getters ) {
+    formGroupData4Submit ( state, getters ) {
       return state.formItems.reduce( ( data, formItemModuleKey ) => ( {
         ...data,
-        ...getters[ `${ formItemModuleKey }/formItemData` ]
+        ...getters[ `${ formItemModuleKey }/formItemData4Submit` ]
+      } ), {} )
+    },
+    formGroupData4View ( state, getters ) {
+      return state.formItems.reduce( ( data, formItemModuleKey ) => ( {
+        ...data,
+        ...getters[ `${ formItemModuleKey }/formItemData4View` ]
       } ), {} )
     },
   },

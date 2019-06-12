@@ -1,6 +1,6 @@
 <template>
   <vi-form-item :rules="rules" prop="form-item-desc" label="desc">
-    <h4>formData.id===10时隐藏</h4>
+    <h4>formData4View.id===10时隐藏</h4>
     <vi-input :value="desc" @blur="updateDesc"></vi-input>
   </vi-form-item>
 </template>
@@ -11,7 +11,7 @@ import { mapState, mapMutations, mapGetters } from "vuex";
 export default {
   name: "form-item-desc",
   computed: {
-    ...mapGetters("demo", ["formData"]),
+    ...mapGetters("demo", ["formData4View"]),
     ...mapState("demo/form-group-2/form-item-desc", ["desc"]),
     rules() {
       return [
@@ -23,7 +23,7 @@ export default {
     }
   },
   watch: {
-    "formData.id": {
+    "formData4View.id": {
       handler(value) {
         this.toggleVisible(() => value === 10);
       }
