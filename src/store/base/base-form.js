@@ -14,9 +14,9 @@ export default {
     },
     // 用于后端接口
     formData ( state, getters ) {
-      return getters.formItemModuleKeys.forEach( ( data, formItemModuleKey ) => ( {
+      return getters.formItemModuleKeys.reduce( ( data, formItemModuleKey ) => ( {
         ...data,
-        [ formItemModuleKey ]: getters[ `${ formItemModuleKey }/formItemData` ]
+        ...getters[ `${ formItemModuleKey }/formItemData` ]
       } ), {} )
     },
     visibleFormGroups ( state ) {
