@@ -2,14 +2,13 @@
 // 同步表单项module
 export default function createSyncPlugin ( namespace ) {
   return store => {
-    const getters = store.getters;
-    const formItemModuleKeys = getters[ `${ namespace }/formItemModuleKeys` ];
-    const moniteTypes = formItemModuleKeys.map( key => `/${ key }/` );
-
     let dispatched = false; // 避免无限循环
 
     // 监听所有表单项module的mutation, 更新所有module到最新状态
     store.subscribe( ( mutation ) => {
+      const formItemModuleKeys = store.getters[ `${ namespace }/formItemModuleKeys` ];
+      const moniteTypes = formItemModuleKeys.map( key => `/${ key }/` );
+
       const { type = '' } = mutation;
       const index = moniteTypes.findIndex( moniteType => type.includes( moniteType ) );
 

@@ -31,6 +31,7 @@ export default {
     ...mapState("demo/form-group-2", ["formItems"]),
     ...mapGetters("demo/form-group-2", ["isFormItemVisible"])
   },
+  // trick: 放到created钩子中会报错
   mounted() {
     this.initFormItems([formItemDesc, formItemText]);
   },

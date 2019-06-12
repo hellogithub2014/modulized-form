@@ -1,5 +1,5 @@
 <template>
-  <vi-form-item :rules="rules" prop="formItemDesc" label="desc">
+  <vi-form-item :rules="rules" prop="form-item-desc" label="desc">
     <vi-input :value="desc" @blur="updateDesc"></vi-input>
   </vi-form-item>
 </template>

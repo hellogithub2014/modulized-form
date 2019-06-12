@@ -1,5 +1,6 @@
 <template>
-  <vi-form-item prop="formItemId" label="id">
+  <!-- prop就是组件name -->
+  <vi-form-item prop="form-item-id" label="id">
     <vi-input :value="id" @blur="updateId"></vi-input>
     <p>name: {{ name }}</p>
   </vi-form-item>

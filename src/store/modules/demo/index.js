@@ -5,7 +5,7 @@ import formGroupModules from './form-groups';
 
 export default extendsModule( baseForm, {
   state: {
-    type: 3
+    type: 3,
   },
   mutations: {
     updateType ( state, type ) {

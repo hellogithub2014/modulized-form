@@ -1,5 +1,5 @@
 <template>
-  <vi-form-item label="name" prop="formItemName">
+  <vi-form-item label="name" prop="form-item-name">
     <span>{{ name }}</span>
     <div>
       <vi-button @click="updateName">updateName</vi-button>

@@ -7,15 +7,17 @@ export default {
   getters: {
     // 集合了所有下属表单项的state
     formModel ( state, getters ) {
-      let model = {};
-      getters.formItemModuleKeys.forEach( ( formItemModuleKey ) => Object.assign( model, state[ formItemModuleKey ] ) )
-      return model;
+      return getters.formItemModuleKeys.reduce( ( model, formItemModuleKey ) => ( {
+        ...model,
+        [ formItemModuleKey ]: state[ formItemModuleKey ],
+      } ), {} )
     },
     // 用于后端接口
     formData ( state, getters ) {
-      let data = {};
-      getters.formItemModuleKeys.forEach( ( formItemModuleKey ) => Object.assign( data, getters[ `${ formItemModuleKey }/formItemData` ] ) )
-      return data;
+      return getters.formItemModuleKeys.forEach( ( data, formItemModuleKey ) => ( {
+        ...data,
+        [ formItemModuleKey ]: getters[ `${ formItemModuleKey }/formItemData` ]
+      } ), {} )
     },
     visibleFormGroups ( state ) {
       return state.formGroups.filter( ( { hidden } ) => !hidden );
@@ -100,7 +102,7 @@ export default {
         hidden: false,
       } )
     },
-    fillForm ( { state, dispatch, getters }, backendData ) {
+    fillForm ( { dispatch, getters }, backendData ) {
       setTimeout( () => {
         getters.formItemModuleKeys.forEach( ( formItemModuleKey ) => dispatch( `${ formItemModuleKey }/data2State`, backendData ) )
       } )
