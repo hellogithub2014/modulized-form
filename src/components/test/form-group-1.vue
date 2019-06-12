@@ -3,7 +3,7 @@
     <h2>Form Group 1</h2>
     <div>
       <p>index: {{ index }}</p>
-      <vi-radio-group v-model="index">
+      <vi-radio-group :value="index" @input="updateIndex">
         <vi-radio :label="0">0</vi-radio>
         <vi-radio :label="1">1</vi-radio>
       </vi-radio-group>
@@ -12,7 +12,6 @@
     <component
       v-for="itemName in formItems"
       v-show="isFormItemVisible(itemName)"
-      :ref="itemName"
       :key="itemName"
       :is="itemName"
       class="form-item"
@@ -36,6 +35,11 @@ export default {
     formItemId,
     formItemName
   },
+  data() {
+    return {
+      index2: 0
+    };
+  },
   computed: {
     ...mapState("demo", ["type"]),
     ...mapState("demo/formGroup1", ["formItems", "index"]),
@@ -56,7 +60,8 @@ export default {
     ...mapMutations("demo/formGroup1", [
       "initFormItems",
       "hideFormItem",
-      "showFormItem"
+      "showFormItem",
+      "updateIndex"
     ])
   }
 };

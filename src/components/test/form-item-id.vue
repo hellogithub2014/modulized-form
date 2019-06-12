@@ -26,7 +26,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations("formItemId", ["update"]),
+    ...mapMutations("demo/formItemId", ["update"]),
     updateId(event) {
       this.update({
         id: event.target.value

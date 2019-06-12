@@ -26,12 +26,6 @@ export default function ( baseModule, childModule = {} ) {
     ...( childModule[ prop ] || {} ),
   } )
 
-
-  const mergeArray = ( prop ) => ( [
-    ...( baseModule[ prop ] || [] ),
-    ...( childModule[ prop ] || [] ),
-  ] )
-
   const result = {
     namespaced: childModule.namespaced || baseModule.namespaced || true,
     state: mergedState,
@@ -39,7 +33,6 @@ export default function ( baseModule, childModule = {} ) {
     mutations: mergeObject( 'mutations' ),
     actions: mergeObject( 'actions' ),
     modules: mergeObject( 'modules' ),
-    plugins: mergeArray( 'plugins' ),
   }
 
   return result;

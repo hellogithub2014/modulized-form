@@ -31,7 +31,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations("formItemDesc", ["update"]),
+    ...mapMutations("demo/formItemDesc", ["update"]),
     largeThan10(rule, value, callback) {
       if (value.desc < 10) {
         callback(new Error("不能小于10"));

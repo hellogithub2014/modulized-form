@@ -14,7 +14,7 @@ export default {
     ...mapState("demo/formItemText", ["text"]) // TODO: 此处对所属的form、fromGroup产生了依赖
   },
   methods: {
-    ...mapMutations("formItemText", ["update"])
+    ...mapMutations("demo/formItemText", ["update"])
   }
 };
 </script>

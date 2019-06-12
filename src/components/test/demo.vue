@@ -12,7 +12,6 @@
       <component
         v-for="groupName in formGroups"
         v-show="isFormGroupVisible(groupName)"
-        :ref="groupName"
         :key="groupName"
         :is="groupName"
         class="form-group"
@@ -64,6 +63,7 @@ export default {
         if (!valid) {
           return;
         }
+        console.log("submitted!!");
       });
     },
     reset() {
