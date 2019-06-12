@@ -16,10 +16,10 @@ export default {
   mixins: [formItemMixin],
   computed: {
     ...mapGetters("demo", ["formData"]),
-    ...mapState("demo/formGroup1/formItemName", ["name", "count"])
+    ...mapState("demo/formItemName", ["name", "count"])
   },
   methods: {
-    ...mapMutations("demo/formGroup1/formItemName", ["update", "addCount"]),
+    ...mapMutations("demo/formItemName", ["update", "addCount"]),
     updateName() {
       this.addCount();
 

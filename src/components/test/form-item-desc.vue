@@ -13,7 +13,7 @@ export default {
   mixins: [formItemMixin],
   computed: {
     ...mapGetters("demo", ["formData"]),
-    ...mapState("demo/formGroup2/formItemDesc", ["desc"]),
+    ...mapState("demo/formItemDesc", ["desc"]),
     rules() {
       return [
         {

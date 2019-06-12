@@ -1,7 +1,9 @@
 
-const fillPlugin = store => {
-  const moduleKeys = Object.keys( store.state.formItemModules );
-  const moniteTypes = moduleKeys.map( moduleKey => `/${ moduleKey }/` );
+// 同步表单项module
+const syncFormItemModule = store => {
+  const formModuleKey = store.state.formModuleKey;
+  const formItemModuleKeys = Object.keys( store.state.formItemModules );
+  const moniteTypes = formItemModuleKeys.map( key => `/${ key }/` );
 
   let dispatched = false; // 避免无限循环
 
@@ -17,7 +19,7 @@ const fillPlugin = store => {
       moniteTypes.forEach( ( _, curIndex ) => {
         if ( curIndex !== index )
         {
-          store.dispatch( `${ moduleKeys[ curIndex ] }/data2State`, store.getters.formData )
+          store.dispatch( `${ formModuleKey }/${ formItemModuleKeys[ curIndex ] }/data2State`, store.getters.formData )
         }
       } )
       setTimeout( () => {
@@ -88,5 +90,5 @@ export default {
       } );
     },
   },
-  plugins: [ fillPlugin ],
+  plugins: [ syncFormItemModule ],
 }

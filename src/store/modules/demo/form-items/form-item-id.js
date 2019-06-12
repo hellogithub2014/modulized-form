@@ -1,7 +1,6 @@
 import { extendsModule, baseFormItem } from '../../../base';
 
 export default extendsModule( baseFormItem, {
-  namespaced: true,
   state: {
     id: '',
     name: '',

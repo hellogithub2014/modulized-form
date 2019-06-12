@@ -8,8 +8,6 @@
       :ref="itemName"
       :key="itemName"
       :is="itemName"
-      :formVm="formVm"
-      :formGroupVm="formGroupVm"
       class="form-item"
       @hide="hideFormItem(itemName)"
       @show="showFormItem(itemName)"

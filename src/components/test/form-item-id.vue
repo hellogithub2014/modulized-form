@@ -14,8 +14,8 @@ export default {
   mixins: [formItemMixin],
   computed: {
     ...mapGetters("demo", ["formData"]),
-    ...mapGetters("demo/formGroup1", ["index"]),
-    ...mapState("demo/formGroup1/formItemId", ["id", "name"])
+    ...mapState("demo/formGroup1", ["index"]),
+    ...mapState("demo/formItemId", ["id", "name"])
   },
   watch: {
     index: {

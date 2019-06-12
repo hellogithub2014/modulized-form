@@ -11,7 +11,7 @@ export default {
   mixins: [formItemMixin],
   computed: {
     ...mapGetters("demo", ["formData"]),
-    ...mapState("demo/formGroup2/formItemText", ["text"]) // TODO: 此处对所属的form、fromGroup产生了依赖
+    ...mapState("demo/formItemText", ["text"]) // TODO: 此处对所属的form、fromGroup产生了依赖
   },
   methods: {
     ...mapMutations("formItemText", ["update"])

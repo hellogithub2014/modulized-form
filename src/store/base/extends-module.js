@@ -21,18 +21,26 @@ export default function ( baseModule, childModule = {} ) {
       ...( childState || {} )
     };
 
-  const merge = ( prop, defaultValue = {} ) => ( {
-    ...( baseModule[ prop ] || defaultValue ),
-    ...( childModule[ prop ] || defaultValue ),
+  const mergeObject = ( prop ) => ( {
+    ...( baseModule[ prop ] || {} ),
+    ...( childModule[ prop ] || {} ),
   } )
 
-  return {
+
+  const mergeArray = ( prop ) => ( [
+    ...( baseModule[ prop ] || [] ),
+    ...( childModule[ prop ] || [] ),
+  ] )
+
+  const result = {
     namespaced: childModule.namespaced || baseModule.namespaced || true,
     state: mergedState,
-    getters: merge( 'getters' ),
-    mutations: merge( 'mutations' ),
-    actions: merge( 'actions' ),
-    modules: merge( 'modules' ),
-    plugins: merge( 'plugins', [] ),
+    getters: mergeObject( 'getters' ),
+    mutations: mergeObject( 'mutations' ),
+    actions: mergeObject( 'actions' ),
+    modules: mergeObject( 'modules' ),
+    plugins: mergeArray( 'plugins' ),
   }
+
+  return result;
 }

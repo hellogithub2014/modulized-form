@@ -2,7 +2,7 @@
   <div>
     <vi-form class="form" ref="form" :model="formModel" label-width="100px">
       <vi-form-item label="type">
-        <vi-select @change="updateType" placeholder="请选择">
+        <vi-select :value="type" @change="updateType" placeholder="请选择">
           <vi-option :label="1" :value="1"></vi-option>
           <vi-option :label="2" :value="2"></vi-option>
           <vi-option :label="3" :value="3"></vi-option>
@@ -58,7 +58,7 @@ export default {
       "showFormGroup",
       "updateType"
     ]),
-    ...mapActions(["fillForm"]),
+    ...mapActions("demo", ["fillForm"]),
     submit() {
       this.$refs.form.validate(valid => {
         if (!valid) {
