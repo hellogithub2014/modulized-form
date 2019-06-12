@@ -14,8 +14,8 @@ export default {
   mixins: [formItemMixin],
   computed: {
     ...mapGetters("demo", ["formData"]),
-    ...mapState("demo/formGroup1", ["index"]),
-    ...mapState("demo/formItemId", ["id", "name"])
+    ...mapState("demo/form-group-1", ["index"]),
+    ...mapState("demo/form-item-id", ["id", "name"])
   },
   watch: {
     index: {
@@ -26,7 +26,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations("demo/formItemId", ["update"]),
+    ...mapMutations("demo/form-item-id", ["update"]),
     updateId(event) {
       this.update({
         id: event.target.value

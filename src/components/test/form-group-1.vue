@@ -10,19 +10,19 @@
     </div>
 
     <component
-      v-for="itemName in formItems"
-      v-show="isFormItemVisible(itemName)"
-      :key="itemName"
-      :is="itemName"
+      v-for="formItem in formItems"
+      v-show="isFormItemVisible(formItem.name)"
+      :key="formItem.name"
+      :is="formItem.name"
       class="form-item"
-      @hide="hideFormItem(itemName)"
-      @show="showFormItem(itemName)"
+      @hide="hideFormItem(formItem.name)"
+      @show="showFormItem(formItem.name)"
     />
   </div>
 </template>
 
 <script>
-import { mapState, mapGetters, mapMutations } from "vuex";
+import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
 
 import formGroupMixin from "../formGroupMixin";
 import formItemId from "./form-item-id";
@@ -42,11 +42,11 @@ export default {
   },
   computed: {
     ...mapState("demo", ["type"]),
-    ...mapState("demo/formGroup1", ["formItems", "index"]),
-    ...mapGetters("demo/formGroup1", ["isFormItemVisible"])
+    ...mapState("demo/form-group-1", ["formItems", "index"]),
+    ...mapGetters("demo/form-group-1", ["isFormItemVisible"])
   },
   mounted() {
-    this.initFormItems(["form-item-id", "form-item-name"]);
+    this.initFormItems([formItemId, formItemName]);
   },
   watch: {
     type: {
@@ -57,12 +57,8 @@ export default {
     immediate: true
   },
   methods: {
-    ...mapMutations("demo/formGroup1", [
-      "initFormItems",
-      "hideFormItem",
-      "showFormItem",
-      "updateIndex"
-    ])
+    ...mapMutations("demo/form-group-1", ["initFormItems", "updateIndex"]),
+    ...mapActions("demo/form-group-1", ["hideFormItem", "showFormItem"])
   }
 };
 </script>

@@ -2,46 +2,60 @@ export default {
   state () {
     return {
       formItems: [],
-      hiddenFormItems: []
     }
   },
   getters: {
     visibleFormItems ( state ) {
-      return state.formItems.filter(
-        formItemName => !state.hiddenFormItems.includes( formItemName )
-      );
+      return state.formItems.filter( ( { hidden } ) => !hidden );
     },
-    isFormItemVisible ( state ) {
-      return ( formItemName ) => !state.hiddenFormItems.includes( formItemName );
+    getFormItemIndex ( state ) {
+      return formItemName => {
+        return state.formItems.findIndex( ( { name } ) => name === formItemName );
+      }
+    },
+    getFormItem ( state ) {
+      return formItemName => {
+        return state.formItems.find( ( { name } ) => name === formItemName );
+      }
+    },
+    isFormItemVisible ( state, getters ) {
+      return formItemName => {
+        const target = getters.getFormItem( formItemName );
+        if ( !target )
+        {
+          return false;
+        }
+        return !target.hidden;
+      }
     },
   },
   mutations: {
-    initFormItems ( state, formItems ) {
-      state.formItems = formItems;
+    // 用于在vuex中管理组件的显式隐藏。 formItemComps: 表单项组件数组.
+    initFormItems ( state, formItemComps ) {
+      state.formItems = formItemComps.map( comp => ( { name: comp.name, hidden: false } ) );
     },
-    hideFormItem ( state, formItemName ) {
-      if ( !state.hiddenFormItems.includes( formItemName ) )
-      {
-        state.hiddenFormItems.push( formItemName );
-      }
-    },
-    showFormItem ( state, formItemName ) {
-      const index = state.hiddenFormItems.indexOf( formItemName );
+    toggleFormItem ( state, { index, hidden } ) {
       if ( index > -1 )
       {
-        state.hiddenFormItems.splice( index, 1 );
+        state.formItems.splice( index, 1, {
+          ...state.formItems[ index ],
+          hidden: !!hidden,
+        } );
       }
     },
   },
   actions: {
-    toggleFormGroup ( { commit }, hideFunc, groupName ) {
-      if ( hideFunc() )
-      {
-        commit( 'hideFormGroup', groupName, { root: true } )
-      } else
-      {
-        commit( 'showFormGroup', groupName, { root: true } )
-      }
-    }
+    hideFormItem ( { getters, commit }, formItemName ) {
+      commit( "toggleFormItem", {
+        index: getters.getFormItemIndex( formItemName ),
+        hidden: true,
+      } )
+    },
+    showFormItem ( { getters, commit }, formItemName ) {
+      commit( "toggleFormItem", {
+        index: getters.getFormItemIndex( formItemName ),
+        hidden: false,
+      } )
+    },
   }
 };

@@ -13,7 +13,7 @@ export default {
   mixins: [formItemMixin],
   computed: {
     ...mapGetters("demo", ["formData"]),
-    ...mapState("demo/formItemDesc", ["desc"]),
+    ...mapState("demo/form-item-desc", ["desc"]),
     rules() {
       return [
         {
@@ -31,7 +31,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations("demo/formItemDesc", ["update"]),
+    ...mapMutations("demo/form-item-desc", ["update"]),
     largeThan10(rule, value, callback) {
       if (value.desc < 10) {
         callback(new Error("不能小于10"));

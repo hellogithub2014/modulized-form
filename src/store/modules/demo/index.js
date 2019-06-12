@@ -4,11 +4,7 @@ import formItemModules from './form-items';
 import formGroupModules from './form-groups';
 
 export default extendsModule( baseForm, {
-  // TODO: 尝试去掉state里的module声明
   state: {
-    formItemModules,
-    formGroupModules,
-
     type: 3
   },
   mutations: {

@@ -3,20 +3,19 @@
     <h2>Form Group 2</h2>
 
     <component
-      v-for="itemName in formItems"
-      v-show="isFormItemVisible(itemName)"
-      :ref="itemName"
-      :key="itemName"
-      :is="itemName"
+      v-for="formItem in formItems"
+      v-show="isFormItemVisible(formItem.name)"
+      :key="formItem.name"
+      :is="formItem.name"
       class="form-item"
-      @hide="hideFormItem(itemName)"
-      @show="showFormItem(itemName)"
+      @hide="hideFormItem(formItem.name)"
+      @show="showFormItem(formItem.name)"
     />
   </div>
 </template>
 
 <script>
-import { mapState, mapGetters, mapMutations } from "vuex";
+import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
 import formGroupMixin from "../formGroupMixin";
 import formItemDesc from "./form-item-desc";
 import formItemText from "./form-item-text";
@@ -29,18 +28,15 @@ export default {
     formItemText
   },
   computed: {
-    ...mapState("demo/formGroup2", ["formItems"]),
-    ...mapGetters("demo/formGroup2", ["isFormItemVisible"])
+    ...mapState("demo/form-group-2", ["formItems"]),
+    ...mapGetters("demo/form-group-2", ["isFormItemVisible"])
   },
   mounted() {
-    this.initFormItems(["form-item-desc", "form-item-text"]);
+    this.initFormItems([formItemDesc, formItemText]);
   },
   methods: {
-    ...mapMutations("demo/formGroup2", [
-      "initFormItems",
-      "hideFormItem",
-      "showFormItem"
-    ])
+    ...mapMutations("demo/form-group-2", ["initFormItems"]),
+    ...mapActions("demo/form-group-2", ["hideFormItem", "showFormItem"])
   }
 };
 </script>

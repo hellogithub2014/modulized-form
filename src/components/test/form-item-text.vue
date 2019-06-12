@@ -11,10 +11,10 @@ export default {
   mixins: [formItemMixin],
   computed: {
     ...mapGetters("demo", ["formData"]),
-    ...mapState("demo/formItemText", ["text"]) // TODO: 此处对所属的form、fromGroup产生了依赖
+    ...mapState("demo/form-item-text", ["text"])
   },
   methods: {
-    ...mapMutations("demo/formItemText", ["update"])
+    ...mapMutations("demo/form-item-text", ["update"])
   }
 };
 </script>

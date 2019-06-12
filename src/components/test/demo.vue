@@ -10,13 +10,13 @@
       </vi-form-item>
 
       <component
-        v-for="groupName in formGroups"
-        v-show="isFormGroupVisible(groupName)"
-        :key="groupName"
-        :is="groupName"
+        v-for="formGroup in formGroups"
+        v-show="isFormGroupVisible(formGroup.name)"
+        :key="formGroup.name"
+        :is="formGroup.name"
         class="form-group"
-        @hide="hideFormGroup(groupName)"
-        @show="showFormGroup(groupName)"
+        @hide="hideFormGroup(formGroup.name)"
+        @show="showFormGroup(formGroup.name)"
       ></component>
 
       <vi-button @click="submit">submit</vi-button>
@@ -41,7 +41,7 @@ export default {
     ...mapGetters("demo", ["formData", "formModel", "isFormGroupVisible"])
   },
   mounted() {
-    this.initFormGroups(["form-group-1", "form-group-2"]); // 数组内部传递gorm-group组件id
+    this.initFormGroups([formGroup1, formGroup2]);
 
     this.fillForm({
       id: 1,
@@ -51,19 +51,14 @@ export default {
     });
   },
   methods: {
-    ...mapMutations("demo", [
-      "initFormGroups",
-      "hideFormGroup",
-      "showFormGroup",
-      "updateType"
-    ]),
-    ...mapActions("demo", ["fillForm"]),
+    ...mapMutations("demo", ["initFormGroups", "updateType"]),
+    ...mapActions("demo", ["fillForm", "hideFormGroup", "showFormGroup"]),
     submit() {
       this.$refs.form.validate(valid => {
         if (!valid) {
           return;
         }
-        console.log("submitted!!");
+        this.$message.success("submitted!!");
       });
     },
     reset() {

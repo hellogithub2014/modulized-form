@@ -2,7 +2,8 @@
 // 同步表单项module
 export default function createSyncPlugin ( namespace ) {
   return store => {
-    const formItemModuleKeys = Object.keys( store.state[ namespace ].formItemModules );
+    const getters = store.getters;
+    const formItemModuleKeys = getters[ `${ namespace }/formItemModuleKeys` ];
     const moniteTypes = formItemModuleKeys.map( key => `/${ key }/` );
 
     let dispatched = false; // 避免无限循环

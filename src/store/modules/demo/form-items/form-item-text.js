@@ -2,6 +2,7 @@ import { extendsModule, baseFormItem } from '../../../base';
 
 export default extendsModule( baseFormItem, {
   state: {
+    _moduleKey: 'form-item-text',
     text: '',
   },
   getters: {

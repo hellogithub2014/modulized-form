@@ -4,8 +4,8 @@ import formItemName from './form-item-name'
 import formItemText from './form-item-text'
 
 export default {
-  formItemDesc,
-  formItemId,
-  formItemName,
-  formItemText
+  [ formItemDesc.state._moduleKey ]: formItemDesc,
+  [ formItemId.state._moduleKey ]: formItemId,
+  [ formItemName.state._moduleKey ]: formItemName,
+  [ formItemText.state._moduleKey ]: formItemText
 }
