@@ -65,17 +65,19 @@ export default {
     },
   },
   actions: {
-    fillFormGroup ( { state, dispatch, commit }, { formData, formState } ) {
+    initState ( { state, commit }, formState ) {
       commit( 'saveFormState', formState );
 
-      // 每个form item自身决定取哪些数据
       state.formItems.forEach( ( formItemModuleKey ) => {
         commit( `${ formItemModuleKey }/saveFormState`, formState );
         commit( `${ formItemModuleKey }/saveFormGroupState`, state );
+      } );
+    },
+    fillFormGroup ( { state, dispatch }, formData ) {
+      // 每个form item自身决定取哪些数据
+      state.formItems.forEach( ( formItemModuleKey ) => {
         dispatch( `${ formItemModuleKey }/data2State`, formData );
       } );
-
-
     },
   },
 };

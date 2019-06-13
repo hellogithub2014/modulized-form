@@ -23,6 +23,7 @@ export default extendsModule( baseFormItem, {
       };
     },
     isVisible ( state, getters ) {
+      // TODO: 获取所属form group是否隐藏
       return getters.formGroupState.index !== 1;
     }
   },

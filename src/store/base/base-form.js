@@ -67,13 +67,19 @@ export default {
     },
   },
   actions: {
+    initFormGroups ( { dispatch, state, commit }, formGroupComps = [] ) {
+      commit( 'initFormGroups', formGroupComps );
+
+      setTimeout( () => {
+        // 将自身state分发到下属每个form group
+        state.formGroups.forEach( ( formGroupModuleKey ) => dispatch( `${ formGroupModuleKey }/initState`, state ) );
+      } )
+    },
+
     fillForm ( { dispatch, state }, backendData ) {
       setTimeout( () => {
-        // 分发到每个form group
-        state.formGroups.forEach( ( formGroupModuleKey ) => dispatch( `${ formGroupModuleKey }/fillFormGroup`, {
-          formData: backendData,
-          formState: state,
-        } ) )
+        // 利用后端数据回填表单，分发到每个form group来做
+        state.formGroups.forEach( ( formGroupModuleKey ) => dispatch( `${ formGroupModuleKey }/fillFormGroup`, backendData ) )
       } )
     },
   },

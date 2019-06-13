@@ -47,16 +47,19 @@ export default {
   mounted() {
     this.initFormGroups([formGroup1, formGroup2]);
 
-    this.fillForm({
-      id: 1,
-      name: 2,
-      desc: 3,
-      text: 4
-    });
+    // 模拟数据拉取
+    setTimeout(() => {
+      this.fillForm({
+        id: 1,
+        name: 2,
+        desc: 3,
+        text: 4
+      });
+    }, 2000);
   },
   methods: {
-    ...mapMutations("demo", ["initFormGroups", "updateType"]),
-    ...mapActions("demo", ["fillForm"]),
+    ...mapMutations("demo", ["updateType"]),
+    ...mapActions("demo", ["fillForm", "initFormGroups"]),
     submit() {
       this.$refs.form.validate(valid => {
         if (!valid) {
