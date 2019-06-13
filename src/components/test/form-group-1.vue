@@ -33,20 +33,11 @@ export default {
     formItemName
   },
   computed: {
-    ...mapState("demo", ["type"]),
     ...mapState("demo/form-group-1", ["formItems", "index"]),
     ...mapGetters("demo/form-group-1", ["isFormItemVisible"])
   },
   mounted() {
     this.initFormItems([formItemId, formItemName]);
-  },
-  watch: {
-    type: {
-      handler(value) {
-        this.toggleVisible(() => value === 1);
-      }
-    },
-    immediate: true
   },
   methods: {
     ...mapMutations("demo/form-group-1", [

@@ -6,12 +6,11 @@
 </template>
 
 <script>
-import { mapState, mapMutations, mapGetters } from "vuex";
+import { mapState, mapMutations } from "vuex";
 
 export default {
   name: "form-item-desc",
   computed: {
-    ...mapGetters("demo", ["formData4View"]),
     ...mapState("demo/form-group-2/form-item-desc", ["desc"]),
     rules() {
       return [
@@ -20,13 +19,6 @@ export default {
           trigger: "blur"
         }
       ];
-    }
-  },
-  watch: {
-    "formData4View.id": {
-      handler(value) {
-        this.toggleVisible(() => value === 10);
-      }
     }
   },
   methods: {

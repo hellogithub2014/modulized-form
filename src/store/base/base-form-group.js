@@ -3,15 +3,23 @@ import Vue from 'vue';
 export default {
   state () {
     return {
+      _formState: {},
       formItems: [],
     }
   },
   getters: {
-    isVisible ( state ) {
-      return !state._hidden;
+    formState ( state ) {
+      return state._formState;
     },
     isFormItemVisible ( state, getters ) {
-      return formItemName => getters[ `${ formItemName }/isVisible` ];
+      return formItemName => {
+        const target = getters[ `${ formItemName }/isVisible` ];
+        if ( target === undefined )
+        {
+          return true;
+        }
+        return !!target;
+      };
     },
     /**
      * 集合form group所有下属表单项的state
@@ -52,20 +60,22 @@ export default {
     initFormItems ( state, formItemComps ) {
       state.formItems = formItemComps.map( comp => comp.name );
     },
-    toggleVisible ( state, hideFunc = () => false ) {
-      if ( hideFunc() )
-      {
-        Vue.set( state, '_hidden', true );
-      } else
-      {
-        Vue.set( state, '_hidden', false );
-      }
+    saveFormState ( state, formState ) {
+      Vue.set( state, '_formState', formState );
     },
   },
   actions: {
-    fillFormGroup ( { state, dispatch }, backendData ) {
+    fillFormGroup ( { state, dispatch, commit }, { formData, formState } ) {
+      commit( 'saveFormState', formState );
+
       // 每个form item自身决定取哪些数据
-      state.formItems.forEach( ( formItemModuleKey ) => dispatch( `${ formItemModuleKey }/data2State`, backendData ) )
+      state.formItems.forEach( ( formItemModuleKey ) => {
+        commit( `${ formItemModuleKey }/saveFormState`, formState );
+        commit( `${ formItemModuleKey }/saveFormGroupState`, state );
+        dispatch( `${ formItemModuleKey }/data2State`, formData );
+      } );
+
+
     },
   },
 };

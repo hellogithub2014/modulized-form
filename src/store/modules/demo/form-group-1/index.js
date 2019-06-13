@@ -7,6 +7,11 @@ export default extendsModule( baseFormGroup, {
     _moduleKey: 'form-group-1',
     index: 0
   },
+  getters: {
+    isVisible ( state, getters ) {
+      return getters.formState.type !== 1;
+    },
+  },
   mutations: {
     updateIndex ( state, index ) {
       state.index = index;

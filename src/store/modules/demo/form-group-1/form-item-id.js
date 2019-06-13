@@ -22,12 +22,15 @@ export default extendsModule( baseFormItem, {
         id: +state.id
       };
     },
+    isVisible ( state, getters ) {
+      return getters.formGroupState.index !== 1;
+    }
   },
   actions: {
     data2State ( { commit }, formData ) {
       commit( 'update', {
         id: formData.id,
-        name: formData.name
+        name: formData.name,
       } )
     }
   }

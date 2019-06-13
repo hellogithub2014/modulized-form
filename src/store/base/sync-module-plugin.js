@@ -19,6 +19,11 @@ export default function createSyncPlugin ( namespace ) {
         moniteTypes.forEach( ( _, curIndex ) => {
           if ( curIndex !== index )
           {
+            // const formItemModulePath = formItemModulePaths[ curIndex ];
+            // const formData4View = store.getters[ `${ namespace }/formData4View` ];
+            // const formGroupModulePath = formItemModulePath.split( '/' ).slice( 0, -1 ).join( '/' );
+            // const formGroupState = store.state[ namespace ][ formGroupModulePath ];
+
             store.dispatch( `${ namespace }/${ formItemModulePaths[ curIndex ] }/data2State`, store.getters[ `${ namespace }/formData4View` ] )
           }
         } )

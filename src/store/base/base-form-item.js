@@ -1,25 +1,31 @@
 import Vue from 'vue';
 
 export default {
+  state () {
+    return {
+      _formState: {},
+      _formGroupState: {},
+    }
+  },
   getters: {
-    isVisible ( state ) {
-      return !state._hidden;
+    formState ( state ) {
+      return state._formState;
     },
+    formGroupState ( state ) {
+      return state._formGroupState;
+    }
   },
   mutations: {
-    toggleVisible ( state, hideFunc = () => false ) {
-      if ( hideFunc() )
-      {
-        Vue.set( state, '_hidden', true );
-      } else
-      {
-        Vue.set( state, '_hidden', false );
-      }
-    },
     update ( state, newState ) {
       Object.keys( newState ).forEach( key => {
         state[ key ] = newState[ key ];
       } )
+    },
+    saveFormState ( state, formState ) {
+      Vue.set( state, '_formState', formState );
+    },
+    saveFormGroupState ( state, formGroupState ) {
+      Vue.set( state, '_formGroupState', formGroupState );
     },
   },
 }

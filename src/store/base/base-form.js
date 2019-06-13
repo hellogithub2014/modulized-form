@@ -39,7 +39,14 @@ export default {
       } ), {} )
     },
     isFormGroupVisible ( state, getters ) {
-      return formGroupName => getters[ `${ formGroupName }/isVisible` ];
+      return formGroupName => {
+        const target = getters[ `${ formGroupName }/isVisible` ];
+        if ( target === undefined )
+        {
+          return true;
+        }
+        return !!target;
+      }
     },
     // 表单所有下属表单项module的namespace path
     formItemModulePaths ( state ) {
@@ -63,7 +70,10 @@ export default {
     fillForm ( { dispatch, state }, backendData ) {
       setTimeout( () => {
         // 分发到每个form group
-        state.formGroups.forEach( ( formGroupModuleKey ) => dispatch( `${ formGroupModuleKey }/fillFormGroup`, backendData ) )
+        state.formGroups.forEach( ( formGroupModuleKey ) => dispatch( `${ formGroupModuleKey }/fillFormGroup`, {
+          formData: backendData,
+          formState: state,
+        } ) )
       } )
     },
   },
