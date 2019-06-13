@@ -50,7 +50,7 @@ export default {
         // 本form group是展示的，并且下属form item也是展示的，才取formItemData4Show
         const gettersKey = ( getters.isSelfVisible && getters.isFormItemVisible( formItemModuleKey ) ) ?
           'formItemData4Show' :
-          'formItemData4Hidden';
+          'formItemData4Hide';
         return {
           ...data,
           ...getters[ `${ formItemModuleKey }/${ gettersKey }` ]

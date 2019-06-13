@@ -7,7 +7,7 @@ export default extendsModule( baseFormItem, {
     count: 0,
   },
   getters: {
-    formItemData4Hidden () {
+    formItemData4Hide () {
       return {
         name: ''
       };
