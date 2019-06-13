@@ -26,7 +26,7 @@ export default {
      *   key3: value3,
      * }
      */
-    formData4Submit ( state, getters ) {
+    formData ( state, getters ) {
       return state.formGroups.reduce( ( data, formGroupModuleKey ) => ( {
         ...data,
         ...getters[ `${ formGroupModuleKey }/formGroupData4Submit` ],
@@ -39,14 +39,7 @@ export default {
       } ), {} )
     },
     isFormGroupVisible ( state, getters ) {
-      return formGroupName => {
-        const target = getters[ `${ formGroupName }/isVisible` ];
-        if ( target === undefined )
-        {
-          return true;
-        }
-        return !!target;
-      }
+      return formGroupName => getters[ `${ formGroupName }/isSelfVisible` ];
     },
     // 表单所有下属表单项module的namespace path
     formItemModulePaths ( state ) {

@@ -7,17 +7,12 @@ export default extendsModule( baseFormItem, {
     desc: ''
   },
   getters: {
-    formItemData4Submit ( state, getters ) {
-      if ( getters.isVisible )
-      {
-        return getters.formItemData4View;
-      }
-
+    formItemData4Hidden () {
       return {
         desc: "",
       }
     },
-    formItemData4View ( state ) {
+    formItemData4Show ( state ) {
       return {
         desc: state.desc
       };

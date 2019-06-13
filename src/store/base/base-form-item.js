@@ -13,7 +13,16 @@ export default {
     },
     formGroupState ( state ) {
       return state._formGroupState;
-    }
+    },
+    // 自身是否可见
+    isSelfVisible ( state, getters ) {
+      const target = getters.isVisible;
+      if ( target === undefined )
+      {
+        return true;
+      }
+      return !!target;
+    },
   },
   mutations: {
     update ( state, newState ) {

@@ -7,13 +7,15 @@ export default extendsModule( baseFormItem, {
     count: 0,
   },
   getters: {
-    formItemData4Submit ( state ) {
+    formItemData4Hidden () {
+      return {
+        name: ''
+      };
+    },
+    formItemData4Show ( state ) {
       return {
         name: state.name
       };
-    },
-    formItemData4View ( state, getters ) {
-      return getters.formItemData4Submit;
     },
   },
   mutations: {

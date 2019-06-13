@@ -7,23 +7,17 @@ export default extendsModule( baseFormItem, {
     name: '',
   },
   getters: {
-    formItemData4Submit ( state, getters ) {
-      if ( getters.isVisible )
-      {
-        return getters.formItemData4View;
-      }
-
+    formItemData4Hidden () {
       return {
         id: ''
       }
     },
-    formItemData4View ( state ) {
+    formItemData4Show ( state ) {
       return {
         id: +state.id
       };
     },
     isVisible ( state, getters ) {
-      // TODO: 获取所属form group是否隐藏
       return getters.formGroupState.index !== 1;
     }
   },

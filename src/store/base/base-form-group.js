@@ -11,15 +11,18 @@ export default {
     formState ( state ) {
       return state._formState;
     },
+    // 下属某个表单项是否可见
     isFormItemVisible ( state, getters ) {
-      return formItemName => {
-        const target = getters[ `${ formItemName }/isVisible` ];
-        if ( target === undefined )
-        {
-          return true;
-        }
-        return !!target;
-      };
+      return formItemName => getters[ `${ formItemName }/isSelfVisible` ];
+    },
+    // 自身是否可见
+    isSelfVisible ( state, getters ) {
+      const target = getters.isVisible;
+      if ( target === undefined )
+      {
+        return true;
+      }
+      return !!target;
     },
     /**
      * 集合form group所有下属表单项的state
@@ -43,15 +46,21 @@ export default {
      * }
      */
     formGroupData4Submit ( state, getters ) {
-      return state.formItems.reduce( ( data, formItemModuleKey ) => ( {
-        ...data,
-        ...getters[ `${ formItemModuleKey }/formItemData4Submit` ]
-      } ), {} )
+      return state.formItems.reduce( ( data, formItemModuleKey ) => {
+        // 本form group是展示的，并且下属form item也是展示的，才取formItemData4Show
+        const gettersKey = ( getters.isSelfVisible && getters.isFormItemVisible( formItemModuleKey ) ) ?
+          'formItemData4Show' :
+          'formItemData4Hidden';
+        return {
+          ...data,
+          ...getters[ `${ formItemModuleKey }/${ gettersKey }` ]
+        }
+      }, {} )
     },
     formGroupData4View ( state, getters ) {
       return state.formItems.reduce( ( data, formItemModuleKey ) => ( {
         ...data,
-        ...getters[ `${ formItemModuleKey }/formItemData4View` ]
+        ...getters[ `${ formItemModuleKey }/formItemData4Show` ]
       } ), {} )
     },
   },
