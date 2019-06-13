@@ -11,10 +11,8 @@ export default extendsModule( baseFormItem, {
         text: state.text,
       };
     },
-    formItemData4View ( state ) {
-      return {
-        text: state.text,
-      };
+    formItemData4View ( state, getters ) {
+      return getters.formItemData4Submit;
     },
   },
   actions: {

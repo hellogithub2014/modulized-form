@@ -12,10 +12,8 @@ export default extendsModule( baseFormItem, {
         name: state.name
       };
     },
-    formItemData4View ( state ) {
-      return {
-        name: state.name
-      };
+    formItemData4View ( state, getters ) {
+      return getters.formItemData4Submit;
     },
   },
   mutations: {

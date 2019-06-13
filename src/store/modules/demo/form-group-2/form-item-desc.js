@@ -9,9 +9,7 @@ export default extendsModule( baseFormItem, {
     formItemData4Submit ( state, getters ) {
       if ( getters.isVisible )
       {
-        return {
-          desc: state.desc
-        };
+        return getters.formItemData4View;
       }
 
       return {

@@ -32,11 +32,6 @@ export default {
     formItemId,
     formItemName
   },
-  data() {
-    return {
-      index2: 0
-    };
-  },
   computed: {
     ...mapState("demo", ["type"]),
     ...mapState("demo/form-group-1", ["formItems", "index"]),

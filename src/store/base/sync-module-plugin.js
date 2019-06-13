@@ -22,7 +22,6 @@ export default function createSyncPlugin ( namespace ) {
             store.dispatch( `${ namespace }/${ formItemModulePaths[ curIndex ] }/data2State`, store.getters[ `${ namespace }/formData4View` ] )
           }
         } )
-        // store.dispatch( `${ namespace }/fillForm`, store.getters[ `${ namespace }/formData` ] )
         dispatched = false;
       }
     } );
