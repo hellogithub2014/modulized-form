@@ -33,18 +33,11 @@ export default {
     formItemName
   },
   computed: {
-    ...mapState("demo/form-group-1", ["formItems", "index"]),
-    ...mapGetters("demo/form-group-1", ["isFormItemVisible"])
-  },
-  mounted() {
-    this.initFormItems([formItemId, formItemName]);
+    ...mapState("demo/form-group-1", ["index"]),
+    ...mapGetters("demo/form-group-1", ["formItems", "isFormItemVisible"])
   },
   methods: {
-    ...mapMutations("demo/form-group-1", [
-      "initFormItems",
-      "updateIndex",
-      "toggleVisible"
-    ])
+    ...mapMutations("demo/form-group-1", ["updateIndex"])
   }
 };
 </script>

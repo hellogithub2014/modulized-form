@@ -22,10 +22,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations("demo/form-group-2/form-item-desc", [
-      "update",
-      "toggleVisible"
-    ]),
+    ...mapMutations("demo/form-group-2/form-item-desc", ["update"]),
     largeThan10(rule, value, callback) {
       if (value.desc < 10) {
         callback(new Error("不能小于10"));

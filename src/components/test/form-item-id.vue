@@ -16,10 +16,7 @@ export default {
     ...mapState("demo/form-group-1/form-item-id", ["id", "name"])
   },
   methods: {
-    ...mapMutations("demo/form-group-1/form-item-id", [
-      "update",
-      "toggleVisible"
-    ]),
+    ...mapMutations("demo/form-group-1/form-item-id", ["update"]),
     updateId(event) {
       this.update({
         id: event.target.value

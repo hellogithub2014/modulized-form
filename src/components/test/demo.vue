@@ -36,8 +36,9 @@ export default {
     formGroup2
   },
   computed: {
-    ...mapState("demo", ["formGroups", "type"]),
+    ...mapState("demo", ["type"]),
     ...mapGetters("demo", [
+      "formGroups",
       "formData",
       "formData4View",
       "formModel",
@@ -45,8 +46,6 @@ export default {
     ])
   },
   mounted() {
-    this.initFormGroups([formGroup1, formGroup2]);
-
     // 模拟数据拉取
     setTimeout(() => {
       this.fillForm({
@@ -59,7 +58,7 @@ export default {
   },
   methods: {
     ...mapMutations("demo", ["updateType"]),
-    ...mapActions("demo", ["fillForm", "initFormGroups"]),
+    ...mapActions("demo", ["fillForm"]),
     submit() {
       this.$refs.form.validate(valid => {
         if (!valid) {

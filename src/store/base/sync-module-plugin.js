@@ -4,11 +4,13 @@ export default function createSyncPlugin ( namespace ) {
   return store => {
     let dispatched = false; // 避免无限循环
 
+    const formItemModulePaths = store.getters[ `${ namespace }/formItemModulePaths` ];
+    const moniteTypes = formItemModulePaths.map( key => `/${ key }/` );
+
+    store.dispatch( `${ namespace }/initVuexModule` );
+
     // 监听所有表单项module的mutation, 更新所有module到最新状态
     store.subscribe( ( mutation ) => {
-      const formItemModulePaths = store.getters[ `${ namespace }/formItemModulePaths` ];
-      const moniteTypes = formItemModulePaths.map( key => `/${ key }/` );
-
       const { type = '' } = mutation;
       const index = moniteTypes.findIndex( moniteType => type.includes( moniteType ) );
 

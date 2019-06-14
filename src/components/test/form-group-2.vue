@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapMutations } from "vuex";
+import { mapGetters } from "vuex";
 import formItemDesc from "./form-item-desc";
 import formItemText from "./form-item-text";
 
@@ -24,15 +24,7 @@ export default {
     formItemText
   },
   computed: {
-    ...mapState("demo/form-group-2", ["formItems"]),
-    ...mapGetters("demo/form-group-2", ["isFormItemVisible"])
-  },
-  // trick: 放到created钩子中会报错
-  mounted() {
-    this.initFormItems([formItemDesc, formItemText]);
-  },
-  methods: {
-    ...mapMutations("demo/form-group-2", ["initFormItems", "toggleVisible"])
+    ...mapGetters("demo/form-group-2", ["formItems", "isFormItemVisible"])
   }
 };
 </script>

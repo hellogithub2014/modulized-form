@@ -1,10 +1,11 @@
-import { extendsModule, baseFormGroup, registerModule } from '../../../base';
+import { extendsModule, baseFormGroup, registerModule, moduleKeys } from '../../../base';
 import formItemId from './form-item-id'
 import formItemName from './form-item-name'
 
 export default extendsModule( baseFormGroup, {
   state: {
     _moduleKey: 'form-group-1',
+    _formItems: moduleKeys( [ formItemId, formItemName ] ),
     index: 0
   },
   getters: {

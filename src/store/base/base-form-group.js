@@ -4,10 +4,12 @@ export default {
   state () {
     return {
       _formState: {},
-      formItems: [],
     }
   },
   getters: {
+    formItems ( state ) {
+      return state._formItems || [];
+    },
     formState ( state ) {
       return state._formState;
     },
@@ -31,8 +33,8 @@ export default {
      *   'form-item-2': formItem2State
      * }
      */
-    formGroupModel ( state ) {
-      return state.formItems.reduce( ( model, formItemModuleKey ) => ( {
+    formGroupModel ( state, getters ) {
+      return getters.formItems.reduce( ( model, formItemModuleKey ) => ( {
         ...model,
         [ formItemModuleKey ]: state[ formItemModuleKey ],
       } ), {} )
@@ -46,7 +48,7 @@ export default {
      * }
      */
     formGroupData4Submit ( state, getters ) {
-      return state.formItems.reduce( ( data, formItemModuleKey ) => {
+      return getters.formItems.reduce( ( data, formItemModuleKey ) => {
         // 本form group是展示的，并且下属form item也是展示的，才取formItemData4Show
         const gettersKey = ( getters.isSelfVisible && getters.isFormItemVisible( formItemModuleKey ) ) ?
           'formItemData4Show' :
@@ -58,33 +60,29 @@ export default {
       }, {} )
     },
     formGroupData4View ( state, getters ) {
-      return state.formItems.reduce( ( data, formItemModuleKey ) => ( {
+      return getters.formItems.reduce( ( data, formItemModuleKey ) => ( {
         ...data,
         ...getters[ `${ formItemModuleKey }/formItemData4Show` ]
       } ), {} )
     },
   },
   mutations: {
-    // 用于在vuex中管理组件的显式隐藏。 formItemComps: 表单项组件数组.
-    initFormItems ( state, formItemComps ) {
-      state.formItems = formItemComps.map( comp => comp.name );
-    },
     saveFormState ( state, formState ) {
       Vue.set( state, '_formState', formState );
     },
   },
   actions: {
-    initState ( { state, commit }, formState ) {
+    initState ( { state, commit, getters }, formState ) {
       commit( 'saveFormState', formState );
 
-      state.formItems.forEach( ( formItemModuleKey ) => {
+      getters.formItems.forEach( ( formItemModuleKey ) => {
         commit( `${ formItemModuleKey }/saveFormState`, formState );
         commit( `${ formItemModuleKey }/saveFormGroupState`, state );
       } );
     },
-    fillFormGroup ( { state, dispatch }, formData ) {
+    fillFormGroup ( { dispatch, getters }, formData ) {
       // 每个form item自身决定取哪些数据
-      state.formItems.forEach( ( formItemModuleKey ) => {
+      getters.formItems.forEach( ( formItemModuleKey ) => {
         dispatch( `${ formItemModuleKey }/data2State`, formData );
       } );
     },

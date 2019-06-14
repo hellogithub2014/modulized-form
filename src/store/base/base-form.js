@@ -1,10 +1,8 @@
 export default {
-  state () {
-    return {
-      formGroups: []
-    }
-  },
   getters: {
+    formGroups ( state ) {
+      return state._formGroups || [];
+    },
     /**
      * 集合表单所有下属表单项的state
      * {
@@ -13,7 +11,7 @@ export default {
      * }
      */
     formModel ( state, getters ) {
-      return state.formGroups.reduce( ( model, formGroupModuleKey ) => ( {
+      return getters.formGroups.reduce( ( model, formGroupModuleKey ) => ( {
         ...model,
         ...getters[ `${ formGroupModuleKey }/formGroupModel` ],
       } ), {} )
@@ -27,13 +25,13 @@ export default {
      * }
      */
     formData ( state, getters ) {
-      return state.formGroups.reduce( ( data, formGroupModuleKey ) => ( {
+      return getters.formGroups.reduce( ( data, formGroupModuleKey ) => ( {
         ...data,
         ...getters[ `${ formGroupModuleKey }/formGroupData4Submit` ],
       } ), {} )
     },
     formData4View ( state, getters ) {
-      return state.formGroups.reduce( ( data, formGroupModuleKey ) => ( {
+      return getters.formGroups.reduce( ( data, formGroupModuleKey ) => ( {
         ...data,
         ...getters[ `${ formGroupModuleKey }/formGroupData4View` ],
       } ), {} )
@@ -42,38 +40,26 @@ export default {
       return formGroupName => getters[ `${ formGroupName }/isSelfVisible` ];
     },
     // 表单所有下属表单项module的namespace path
-    formItemModulePaths ( state ) {
+    formItemModulePaths ( state, getters ) {
       let keys = [];
 
-      state.formGroups.forEach( formGroupModuleKey => {
-        const { formItems = [] } = state[ formGroupModuleKey ];
+      getters.formGroups.forEach( formGroupModuleKey => {
+        const formItems = getters[ `${ formGroupModuleKey }/formItems` ];
         formItems.forEach( ( formItemModuleKey ) => keys.push( `${ formGroupModuleKey }/${ formItemModuleKey }` ) );
       } );
 
       return keys;
     },
   },
-  mutations: {
-    // 用于在vuex中管理组件的显式隐藏。 formGroupComps: formGroup组件数组.
-    initFormGroups ( state, formGroupComps = [] ) {
-      state.formGroups = formGroupComps.map( comp => comp.name );
-    },
-  },
   actions: {
-    initFormGroups ( { dispatch, state, commit }, formGroupComps = [] ) {
-      commit( 'initFormGroups', formGroupComps );
-
-      setTimeout( () => {
-        // 将自身state分发到下属每个form group
-        state.formGroups.forEach( ( formGroupModuleKey ) => dispatch( `${ formGroupModuleKey }/initState`, state ) );
-      } )
+    initVuexModule ( { dispatch, state, getters } ) {
+      // 将自身state分发到下属每个form group
+      getters.formGroups.forEach( ( formGroupModuleKey ) => dispatch( `${ formGroupModuleKey }/initState`, state ) );
     },
 
-    fillForm ( { dispatch, state }, backendData ) {
-      setTimeout( () => {
-        // 利用后端数据回填表单，分发到每个form group来做
-        state.formGroups.forEach( ( formGroupModuleKey ) => dispatch( `${ formGroupModuleKey }/fillFormGroup`, backendData ) )
-      } )
+    fillForm ( { dispatch, getters }, backendData ) {
+      // 利用后端数据回填表单，分发到每个form group来做
+      getters.formGroups.forEach( ( formGroupModuleKey ) => dispatch( `${ formGroupModuleKey }/fillFormGroup`, backendData ) )
     },
   },
 }
