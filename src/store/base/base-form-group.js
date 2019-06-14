@@ -4,6 +4,7 @@ export default {
   state () {
     return {
       _formState: {},
+      _formNamespace: '',
     }
   },
   getters: {
@@ -12,6 +13,9 @@ export default {
     },
     formState ( state ) {
       return state._formState;
+    },
+    formNamespace ( state ) {
+      return state._formNamespace;
     },
     // 下属某个表单项是否可见
     isFormItemVisible ( state, getters ) {
@@ -70,14 +74,20 @@ export default {
     saveFormState ( state, formState ) {
       Vue.set( state, '_formState', formState );
     },
+    saveFormNamespace ( state, formNamespace ) {
+      Vue.set( state, '_formNamespace', formNamespace );
+    }
   },
   actions: {
-    initState ( { state, commit, getters }, formState ) {
+    initState ( { state, commit, getters }, { formState, formNamespace } ) {
       commit( 'saveFormState', formState );
+      commit( 'saveFormNamespace', formNamespace );
 
       getters.formItems.forEach( ( formItemModuleKey ) => {
         commit( `${ formItemModuleKey }/saveFormState`, formState );
+        commit( `${ formItemModuleKey }/saveFormNamespace`, formNamespace );
         commit( `${ formItemModuleKey }/saveFormGroupState`, state );
+        commit( `${ formItemModuleKey }/saveFormGroupNamespace`, state._moduleKey );
       } );
     },
     fillFormGroup ( { dispatch, getters }, formData ) {

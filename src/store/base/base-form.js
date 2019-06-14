@@ -54,7 +54,10 @@ export default {
   actions: {
     initVuexModule ( { dispatch, state, getters } ) {
       // 将自身state分发到下属每个form group
-      getters.formGroups.forEach( ( formGroupModuleKey ) => dispatch( `${ formGroupModuleKey }/initState`, state ) );
+      getters.formGroups.forEach( ( formGroupModuleKey ) => dispatch( `${ formGroupModuleKey }/initState`, {
+        formState: state,
+        formNamespace: state._moduleKey,
+      } ) );
     },
 
     fillForm ( { dispatch, getters }, backendData ) {
